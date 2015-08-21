@@ -2,7 +2,7 @@
 BLACK_MARKET_CHAMPIONS = 126
 #FlatArmorMod, FlatAttackSpeedMod,...rPercentTimeDeadModPerLevel, Range, Kills, Deaths, Assists, CS/min, physical damage, magic damage, true damage, 
 #damage taken, team jgl, enemy jgl, GoldEarned/min, Offense, Defense, Utility, spell1id, spell2id, 
-BLACK_MARKET_FEATURES = 82 #filler
+BLACK_MARKET_FEATURES = 83 #filler
 
 URL = {
 	'base': 'https://{proxy}.api.pvp.net/api/lol/{region}/{url}',
@@ -11,8 +11,9 @@ URL = {
 	'matchhistory': 'v{version}/match/{matchid}' ,
 	'static_data_itemid': 'v{version}/item/{itemid}',
 	'static_data_champid': 'v{version}/champion/{champid}',
-	'static_data_runeid': 'v{version}/rune/{runeid}'
-	'static_data_masteryid': 'v{version}/mastery/{masteryid}'
+	'static_data_runeid': 'v{version}/rune/{runeid}',
+	'static_data_masteryid': 'v{version}/mastery/{masteryid}',
+	'static_data_allchamps': 'v{version}/champion'
 }
 
 API_VERSION = {
@@ -96,5 +97,21 @@ STAT_TO_MATRIX = {
 }
 
 VARIABLE_TO_MATRIX = {
-	
+	'offense': 1,
+	'defense': 2, 
+	'utility': 3,
+	'kills': 4,
+	'deaths': 5,
+	'assists': 6,
+	'phys_dmg': 7,
+	'mgc_dmg': 8, 
+	'true_dmg': 9, 
+	'dmg_taken': 10, 
+	'team_jgl': 11, 
+	'enemy_jgl': 12,
+	'atk_range': 13,
+	'cs_min': 14,
+	'gold_min': 15,
+	'spell1id': 16,
+	'spell2id': 17 
 }

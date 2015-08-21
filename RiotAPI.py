@@ -42,3 +42,7 @@ class RiotAPI(object):
 	def get_mastery_by_id(self, idnum, params={}):
 		api_url = Consts.URL['static_data_masteryid'].format(version=Consts.API_VERSION['static_data'], masteryid = idnum)
 		return self._request(api_url, True, params)
+
+	def get_all_champs(self, params={}):
+		api_url = Consts.URL['static_data_allchamps'].format(version=Consts.API_VERSION['static_data'])
+		return self._request(api_url, True, params)
