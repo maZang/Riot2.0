@@ -25,15 +25,17 @@ nav{
 }
 
 .nav-tabs > li > a{
-	background-color: white;
+	background-color: black;
 	border-color: black;
+	color: white;
 	font-family: 'Raleway', sans-serif;
 }
 
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li > a:hover{
-	background-color: #CFCFCF;
+	background-color: #2E2E2E;
+	color: white;
 	border-color: black;
 }
 
