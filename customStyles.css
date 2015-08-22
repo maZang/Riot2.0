@@ -1,0 +1,28 @@
+html,body, .container-fluid{
+	padding: 0px;
+	margin: 0px;
+}
+
+h1{
+	font-family: 'Raleway', sans-serif;
+	color: red;
+}
+
+nav{
+	z-index: 99;
+}
+
+.intro{
+	background-image: url("http://i.imgur.com/jV3rOhB.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center;
+}
+
+.active{
+	background-color: cyan;
+}
+
+nav> li > a:hover{
+	background-color: #0099FF;
+}
