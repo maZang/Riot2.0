@@ -2,6 +2,7 @@ html,body, .container-fluid{
 	padding: 0px;
 	margin: 0px;
 	overflow-x: hidden;
+	background-color: black;
 }
 
 h1{
@@ -22,6 +23,7 @@ nav{
 
 .nav-tabs{
 	position: fixed;
+	border-color: black;
 }
 
 .nav-tabs > li > a{
@@ -42,6 +44,7 @@ nav{
 section{
 	font-family: 'Lato', sans-serif;
 	font-size: 20px;
+	color: white;
 }
 
 h2{
