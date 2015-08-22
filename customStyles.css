@@ -1,6 +1,7 @@
 html,body, .container-fluid{
 	padding: 0px;
 	margin: 0px;
+	overflow-x: hidden;
 }
 
 h1{
@@ -19,12 +20,21 @@ nav{
 	background-position: center;
 }
 
-.active{
-	background-color: cyan;
+.nav-tabs{
+	position: fixed;
 }
 
-nav> li > a:hover{
-	background-color: #0099FF;
+.nav-tabs > li > a{
+	background-color: white;
+	border-color: black;
+	font-family: 'Raleway', sans-serif;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li > a:hover{
+	background-color: #CFCFCF;
+	border-color: black;
 }
 
 section{
