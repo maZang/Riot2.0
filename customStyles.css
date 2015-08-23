@@ -2,7 +2,7 @@ html,body, .container-fluid{
 	padding: 0px;
 	margin: 0px;
 	overflow-x: hidden;
-	background-color: black;
+	background-color: #191919;
 }
 
 h1{
@@ -19,6 +19,8 @@ nav{
 	background-repeat: no-repeat;
 	background-size: 100%;
 	background-position: center;
+	border-bottom: ridge;
+	border-color: #B2B2B2;
 }
 
 .nav-tabs{
@@ -39,6 +41,11 @@ nav{
 	background-color: #2E2E2E;
 	color: white;
 	border-color: black;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover{
+	color: #6699FF;
 }
 
 section{
