@@ -32,7 +32,7 @@ class RiotAPI(object):
 		return self._request(api_url, True, params)
 
 	def get_champ_by_id(self, idnum, params={}):
-		api_url = Consts.URL['satic_data_champid'].format(version=Consts.API_VERSION['static_data'], champid = idnum)
+		api_url = Consts.URL['static_data_champid'].format(version=Consts.API_VERSION['static_data'], champid = idnum)
 		return self._request(api_url, True, params)
 
 	def get_rune_by_id(self, idnum, params={}):

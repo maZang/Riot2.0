@@ -9,7 +9,7 @@ champs = api.get_all_champs()
 champ_dict = {}
 index = 0
 for champ in champs['data'].keys():
-	champ_dict[champs['data'][champ]['name']] = index
+	champ_dict[champ] = index
 	index += 1
 with open('champ_dict.json', 'w') as fp:
 	json.dump(champ_dict, fp)
