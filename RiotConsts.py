@@ -18,7 +18,7 @@ URL = {
 
 API_VERSION = {
 	'summoner': '1.4',
-	'match:': '2.2', 
+	'match': '2.2', 
 	'static_data': '1.2'
 }
 
