@@ -4,6 +4,11 @@ BLACK_MARKET_CHAMPIONS = 126
 #damage taken, team jgl, enemy jgl, GoldEarned/min, Offense, Defense, Utility, spell1id, spell2id, 
 BLACK_MARKET_FEATURES = 83 #filler
 
+#Error Code
+RATE_ERROR_CODE = 429
+NOT_FOUND = 404
+SUCCESS_CODE = 200
+
 URL = {
 	'base': 'https://{proxy}.api.pvp.net/api/lol/{region}/{url}',
 	'static_base': 'https://{proxy}.api.pvp.net/api/lol/static-data/{region}/{url}',

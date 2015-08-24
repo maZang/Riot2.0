@@ -17,7 +17,7 @@ item_cache = LRUCache(130)
 champion_cache = LRUCache(130)
 
 def main():
-	api = RiotAPI('5692a80d-37e8-476a-8b37-7995789d9bf7')
+	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	#loading the NA match ids
 	data = json.loads(open('./BILGEWATER/NA.json').read())
 	csv_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES]) 
@@ -74,7 +74,7 @@ def main():
 
 def _fill_champ_id_range(csv_data, data_col_base):
 	#fill out champ ids and attack range
-	api = RiotAPI('5692a80d-37e8-476a-8b37-7995789d9bf7')
+	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	champs = api.get_all_champs({'champData': 'stats'})
 	for col in range(csv_data.shape[0]):
 		name = _get_name(col)
@@ -88,7 +88,7 @@ def _get_name(num):
 	return "Error"
 
 def _parse_masteries(masteries):
-	api = RiotAPI('5692a80d-37e8-476a-8b37-7995789d9bf7')
+	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	offense = 0
 	defense = 0
 	utility = 0
@@ -104,7 +104,7 @@ def _parse_masteries(masteries):
 			offense += mastery['rank']
 		elif cur_mastery['masteryTree'] == 'Defense':
 			defense += mastery['rank']
-		else:
+		elif cur_mastery['masteryTree'] == 'Utility':
 			utility += mastery['rank']
 		mastery_cache.place(masteryId, cur_mastery)
 	if (offense + defense + utility) > 30:
@@ -145,12 +145,14 @@ def _parse_timeline(timeline):
 	return cs_min/len(cs_min_dict), gold_min/len(gold_min_dict)
 
 def _parse_runes(runes, csv_data, champidx):
-	api = RiotAPI('5692a80d-37e8-476a-8b37-7995789d9bf7')
+	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	for rune in runes:
 		runeId = rune['runeId']
 		cur_rune = rune_cache.find(runeId)
 		if cur_rune is False:
 			cur_rune = api.get_rune_by_id(runeId, {'runeData': 'stats'})
+			if cur_rune is False:
+				return csv_data
 		for key, value in cur_rune['stats'].items():
 			data_col = Consts.STAT_TO_MATRIX[key]
 			csv_data[champidx][data_col] += value * rune['rank']
@@ -159,7 +161,7 @@ def _parse_runes(runes, csv_data, champidx):
 
 def _parse_items(items, csv_data, champidx):
 	#trinket not taken into consideration
-	api = RiotAPI('5692a80d-37e8-476a-8b37-7995789d9bf7')
+	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	item1 = items['item0']
 	item2 = items['item1']
 	item3 = items['item2']
@@ -175,6 +177,8 @@ def _parse_items(items, csv_data, champidx):
 		cur_item = item_cache.find(item)
 		if cur_item is False:
 			cur_item = api.get_item_by_id(item, {'itemData': 'stats'})
+			if cur_item is False:
+				return csv_data
 		#iterate through item stacks
 		for key, value in cur_item['stats'].items():
 			data_col = Consts.STAT_TO_MATRIX[key]

@@ -12,11 +12,21 @@ class RiotAPI(object):
 		for key, value in params.items():
 			if key not in args:
 				args[key] = value
-		if not static:
-			response = requests.get(Consts.URL['base'].format(proxy=self.region,region=self.region,url=api_url), params=args)
-		else:
-			response = requests.get(Consts.URL['static_base'].format(proxy='global',region=self.region,url=api_url), params=args)
-		print(response.url)
+		while True:
+			if not static:
+				response = requests.get(Consts.URL['base'].format(proxy=self.region,region=self.region,url=api_url), params=args)
+			else:
+				response = requests.get(Consts.URL['static_base'].format(proxy='global',region=self.region,url=api_url), params=args)
+			#print(response.text)
+			if response.status_code == Consts.RATE_ERROR_CODE:
+				print("Rate limit exceeded... Currently waiting")
+				continue
+			if response.status_code == Consts.NOT_FOUND:
+				return False
+			if response.status_code != Consts.SUCCESS_CODE:
+				print("Unknown Error")
+				continue
+			break
 		return response.json()
 
 	def get_summoner_by_name(self, name):
