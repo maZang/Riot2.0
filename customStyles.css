@@ -21,6 +21,7 @@ nav{
 	background-position: center;
 	border-bottom: ridge;
 	border-color: #B2B2B2;
+	margin-bottom: 50px;
 }
 
 .nav-tabs{
@@ -55,6 +56,19 @@ section{
 	color: white;
 }
 
-h2{
-	
+input{
+	color: black;
 }
+
+#searchRow{
+	margin: 0 10px 0 10px;
+}
+
+::-webkit-input-placeholder {
+   font-style: italic;
+}
+:-moz-placeholder {
+   font-style: italic;  
+}
+::-moz-placeholder {
+   font-style: italic;
