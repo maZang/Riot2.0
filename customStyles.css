@@ -26,6 +26,7 @@ nav{
 .nav-tabs{
 	position: fixed;
 	border-color: black;
+	background-color: black;
 }
 
 .nav-tabs > li > a{
