@@ -4,6 +4,7 @@ import numpy as np
 import RiotConsts as Consts 
 import requests
 from LRU_Cache import LRUCache
+import k_means_learning as KLearn
 
 with open('champ_dict.json', 'r') as df:
 	CHAMP_TO_MATRIX = json.load(df)
@@ -68,7 +69,7 @@ def main():
 			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['gold_min']] += gold_min
 			#these methods input data directly into matrix
 			csv_data = _parse_runes(champ.get('runes', []), csv_data, chmp_mtrx_index)
-			csv_data = _parse_items(champ['stats'], csv_data, chmp_mtrx_index, pop_items)
+			csv_data = _parse_items(champ['stats'], csv_data, chmp_mtrx_index, pop_items, True)
 			
 			#add 1 to champion counter	 
 			csv_data[chmp_mtrx_index, Consts.BLACK_MARKET_FEATURES-1]+=1
@@ -89,6 +90,64 @@ def main():
 		json.dump(pop_items, fp)
 	with open('team_dict.json', 'w') as fp:
 		json.dump(team_comps, fp)
+
+def second_main():
+	#np.set_printoptions(threshold=np.inf)
+	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
+	#loading the NA match ids
+	data = json.loads(open('./BILGEWATER/NA.json').read())
+	data_col_base = len(Consts.STAT_TO_MATRIX)
+	#initialize different arrays
+	marksman_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	support_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	mage_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	tank_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	fighter_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	data_list = {'Marksman': marksman_data, 'Support': support_data, 'Mage': mage_data, 'Tank': tank_data, 'Fighter': fighter_data}
+	for role in data_list:
+		_fill_champ_id_range(data_list[role], data_col_base)
+	#initialize k-cluster
+	kmean, scaler = KLearn.get_k_learn()
+	match_num = 1
+	for matchid in data:
+		print("On match number " + str(match_num))
+		match = api.get_match_info(matchid, {'includeTimeline': True})
+		for champ in match['participants']:
+			champ_data = np.zeros(shape=[1, Consts.BLACK_MARKET_FEATURES])
+			#get champ id and name
+			championID = champ['championId']
+			champ_name = champion_cache.find(championID)
+			if champ_name is False:
+				champ_name = api.get_champ_by_id(championID)['key']
+			champion_cache.place(championID, champ_name)
+			chmp_mtrx_index = CHAMP_TO_MATRIX[champ_name]
+			#these methods return values which must then be input into the matrix
+			offense, defense, utility = _parse_masteries(champ.get('masteries', []))
+			kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, win = _parse_stats(champ['stats'], championID)
+			cs_min, gold_min = _parse_timeline(champ['timeline'])
+			#combination so it does not matter which order summoner spells are chosen
+			spell1id = champ['spell2Id'] + champ['spell1Id']
+			spell2id = champ['spell1Id'] * champ['spell2Id']
+			#place data into matrix
+			#attack range not changed because data is normalized anyway
+			data_delta = np.array([offense, defense, utility, kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, 
+				0, cs_min, gold_min, spell1id, spell2id, win])
+			champ_data[0, data_col_base + 1:data_col_base + len(Consts.VARIABLE_TO_MATRIX) + 1] += data_delta
+			#these methods input data directly into matrix
+			champ_data = _parse_runes(champ.get('runes', []), champ_data, 0)
+			champ_data = _parse_items(champ['stats'], champ_data, 0, {}, False)
+			#add 1 to champion counter	 
+			champ_data[0, Consts.BLACK_MARKET_FEATURES-1]+=1
+			cluster_num = find_cluster(kmean, scaler, champ_data)
+			data_list[KLearn.roles[cluster_num]][chmp_mtrx_index] += champ_data.flatten()
+		match_num+=1
+	for role in data_list:
+		np.savetxt('role_data' + role + '.csv', data_list[role], delimiter= ",", comments = "")
+
+def find_cluster(kmean, scaler, champ_data):
+	scaled_data = champ_data[:, 1:Consts.BLACK_MARKET_FEATURES-2]
+	scaled_data = scaler.transform(scaled_data)
+	return kmean.predict(scaled_data)[0]
 
 def add_to_team_comps(win_team, lose_team, team_comps):
 	if win_team not in team_comps:
@@ -203,7 +262,7 @@ def _parse_runes(runes, csv_data, champidx):
 		rune_cache.place(runeId, cur_rune)
 	return csv_data
 
-def _parse_items(items, csv_data, champidx, pop_items):
+def _parse_items(items, csv_data, champidx, pop_items, itemDict):
 	#trinket not taken into consideration
 	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	item1 = items['item0']
@@ -223,12 +282,14 @@ def _parse_items(items, csv_data, champidx, pop_items):
 			cur_item = api.get_item_by_id(item, {'itemData': 'stats'})
 			if cur_item is False:
 				return csv_data
-		#iterate through item stacks
+		#iterate through item stats
 		for key, value in cur_item['stats'].items():
 			data_col = Consts.STAT_TO_MATRIX[key]
 			csv_data[champidx, data_col]+= value
 		item_cache.place(item, cur_item)
-		#put item in item dict
+		#put item in item dict unless no itemDict
+		if itemDict is False:
+			return csv_data
 		name = _get_name(champidx)
 		item_dict = pop_items[name]
 		if item not in item_dict:
@@ -238,4 +299,4 @@ def _parse_items(items, csv_data, champidx, pop_items):
 	return csv_data
 
 if __name__ == "__main__":
-	main()
+	second_main()

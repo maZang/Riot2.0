@@ -14,23 +14,26 @@ from sklearn.datasets import load_digits
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import scale
 
-def main():
+roles = {0: "Support", 1: "Marksman", 2: "Mage", 3: "Tank", 4: "Fighter"}
+
+#previously main function
+def get_k_learn():
 	data = pd.read_csv("./data1.csv")
 	X = data.values
 	with open('champ_dict.json', 'r') as df:
 		CHAMP_TO_MATRIX = json.load(df)
-	X, bad_values = _preprocess(X)
+	X, bad_values, scaler = _preprocess(X)
 	X_means = X
 	#remove bad values from X
 	for row in bad_values:
 		X_means = np.delete(X_means, row - 1, 0)
 	#remove some features (e.g. gold_min because of dependence on cs_min)
 	num_features_removed = 3
-	X_means = scipy.delete(X_means, len(Consts.STAT_TO_MATRIX) - 1 + Consts.VARIABLE_TO_MATRIX['gold_min'], 1)
-	X = scipy.delete(X, len(Consts.STAT_TO_MATRIX) - 1 + Consts.VARIABLE_TO_MATRIX['gold_min'], 1)
-	num_features_removed += 1
+	#X_means = scipy.delete(X_means, len(Consts.STAT_TO_MATRIX) - 1 + Consts.VARIABLE_TO_MATRIX['gold_min'], 1)
+	#X = scipy.delete(X, len(Consts.STAT_TO_MATRIX) - 1 + Consts.VARIABLE_TO_MATRIX['gold_min'], 1)
+	#num_features_removed += 1
 	#initialize centroids
-	initial_centroids = ['Alistar', 'Ashe', 'Leblanc', 'Maokai', 'Talon', 'Vladimir', 'Renekton']
+	initial_centroids = ['Alistar', 'Ashe', 'Leblanc', 'Maokai', 'Renekton']
 	init_centroid_mtrx = np.empty(shape=[len(initial_centroids), Consts.BLACK_MARKET_FEATURES - num_features_removed])
 	row_index = 0
 	for champ in initial_centroids:
@@ -38,10 +41,13 @@ def main():
 		init_centroid_mtrx[row_index, :] = X[row_num, :]
 		row_index += 1
 	kmean = KMeans(n_clusters = 5, init = init_centroid_mtrx, max_iter = 300, verbose = 1)
-	kmean.fit(X_means, y = None)
-	clusters = kmean.predict(X)
-	champ_roles = make_role_dict(clusters, CHAMP_TO_MATRIX)
-	print(champ_roles)
+	kmean = kmean.fit(X_means, y = None)
+	return kmean, scaler
+	#clusters = kmean.predict(X)
+	#champ_roles = make_role_dict(clusters, CHAMP_TO_MATRIX)
+	#print(champ_roles)
+
+def plot(X_means):
 	#visualize (code retrieved from sci-kit learn)
 	reduced_data = PCA(n_components=2).fit_transform(X_means)
 	kmeans = KMeans(init='k-means++', n_clusters=7, n_init=10)
@@ -82,7 +88,6 @@ def main():
 
 def make_role_dict(clusters, CHAMP_TO_MATRIX):
 	champ_roles = {}
-	roles = {0: "Support", 1: "Marksman", 2: "Mage", 3: "Tank", 4: "Assassin", 5:"Magical Bruiser", 6: "Physical Bruiser"}
 	for i in range(0, len(CHAMP_TO_MATRIX)):
 		for k, v in CHAMP_TO_MATRIX.items():
 			if v == i:
@@ -105,8 +110,9 @@ def _preprocess(mtrx):
 		mtrx[:, col] = np.divide(mtrx[:, col], num_games)
 	mtrx = mtrx[:, 1:Consts.BLACK_MARKET_FEATURES-2]
 	mtrx_scaled = preprocessing.scale(mtrx)
-	return mtrx_scaled, bad_values
+	scaler = preprocessing.StandardScaler().fit(mtrx)
+	return mtrx_scaled, bad_values, scaler
 	#return mtrx
 
-if __name__ == "__main__":
-	main()
+#if __name__ == "__main__":
+#	main()
