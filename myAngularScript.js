@@ -33,7 +33,7 @@
 	var TableController = function($scope, $http){
 
 		//champDict assignment
-		var champDict = {"Pantheon": 0, "Vladimir": 85, "Malzahar": 1, "Zed": 2, "Leblanc": 3, "Tryndamere": 62, "Swain": 5, "Nami": 6, "Irelia": 7, 
+		$scope.champDict = {"Pantheon": 0, "Vladimir": 85, "Malzahar": 1, "Zed": 2, "Leblanc": 3, "Tryndamere": 62, "Swain": 5, "Nami": 6, "Irelia": 7, 
 		"Leona": 8, "Shen": 9, "Sona": 10, "Jax": 11, "Nocturne": 12, "MissFortune": 14, "Graves": 16, "Khazix": 36, "Chogath": 17, "Nautilus": 18, 
 		"Trundle": 19, "Brand": 20, "Alistar": 101, "Maokai": 21, "MonkeyKing": 22, "TwistedFate": 23, "Sivir": 24, "Warwick": 25, "Azir": 125, "Elise": 26, 
 		"Gragas": 27, "Lux": 29, "Darius": 30, "Quinn": 31, "DrMundo": 32, "Shyvana": 33, "Talon": 34, "Ryze": 35, "Draven": 73, "Renekton": 37, "Karma": 38, 
@@ -47,7 +47,12 @@
 		"Garen": 113, "Galio": 114, "Singed": 115, "Taric": 44, "Veigar": 117, "Fizz": 118, "Rumble": 119, "Soraka": 120, "Corki": 87, "Gangplank": 54, 
 		"Orianna": 59, "Cassiopeia": 123, "Akali": 124, "Janna": 122};
 
-		$('.winRate').html(champDict[$scope.champName]);
+		// $('.kills').html(champDict[$scope.champName]);
+		// $('.deaths').html(champDict[$scope.champName]);
+		// $('.assists').html(champDict[$scope.champName]);
+		// $('.cs').html(champDict[$scope.champName]);
+		// $('.gold').html(champDict[$scope.champName]);
+		// $('.winRate').html(champDict[$scope.champName]);
 	};
 
 
