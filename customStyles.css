@@ -2,7 +2,7 @@ html,body, .container-fluid{
 	padding: 0px;
 	margin: 0px;
 	overflow-x: hidden;
-	background-color: black;
+	background-color: #191919;
 }
 
 h1{
@@ -19,11 +19,15 @@ nav{
 	background-repeat: no-repeat;
 	background-size: 100%;
 	background-position: center;
+	border-bottom: ridge;
+	border-color: #B2B2B2;
+	margin-bottom: 50px;
 }
 
 .nav-tabs{
 	position: fixed;
 	border-color: black;
+	background-color: black;
 }
 
 .nav-tabs > li > a{
@@ -41,12 +45,30 @@ nav{
 	border-color: black;
 }
 
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover{
+	color: #6699FF;
+}
+
 section{
 	font-family: 'Lato', sans-serif;
 	font-size: 20px;
 	color: white;
 }
 
-h2{
-	
+input{
+	color: black;
 }
+
+#searchRow{
+	margin: 0 10px 0 10px;
+}
+
+::-webkit-input-placeholder {
+   font-style: italic;
+}
+:-moz-placeholder {
+   font-style: italic;  
+}
+::-moz-placeholder {
+   font-style: italic;

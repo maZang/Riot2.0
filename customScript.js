@@ -1,6 +1,6 @@
 // (function(){
 
-// var app = angular.module("champPuller", []);
+var app = angular.module("champPuller", []);
 
 // var PictureController = function($scope, $http){
 
@@ -22,7 +22,6 @@
 // app.controller("PictureController" , PictureController);
 
 // }());
-
-var MainController = function($scope){
+app.controller("MainController", ["$scope", function($scope){
 	$scope.message = "Test";
-};
+}]);
