@@ -66,10 +66,20 @@ input{
 }
 
 ::-webkit-input-placeholder {
-   font-style: italic;
+	font-style: italic;
 }
+
+:-ms-input-placeholder{
+	font-style: italic;
+}
+
 :-moz-placeholder {
-   font-style: italic;  
+	font-style: italic;  
 }
-::-moz-placeholder {
-   font-style: italic;
+
+.searchInterface{
+	border-bottom: ridge;
+}
+
+
+

@@ -57,9 +57,8 @@
 					</form>
 					<h2 class ="text-center text-danger">{{errorMsg}}</h2>
 				</div>
-				<div ng-if="champion" class="championDetails" ng-style="{'background-image': 'url(' + imgURL + ')'}">
-					<!--<img ng-show="champion" ng-src={{imgURL}} >-->
-					{{imgURL}}
+				<div ng-if="champion" class="championDetails" ng-style="{'background-image': 'url(' +imgURL + ')', 'background-repeat': 'no-repeat',
+				'background-size': '100%'}">
 					aaaaaa<br/>
 					aaaaaa<br/>
 					aaaaaa<br/>
