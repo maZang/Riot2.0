@@ -66,10 +66,22 @@ input{
 }
 
 ::-webkit-input-placeholder {
-   font-style: italic;
+	font-style: italic;
 }
+
+:-ms-input-placeholder{
+	font-style: italic;
+}
+
 :-moz-placeholder {
-   font-style: italic;  
+	font-style: italic;  
 }
-::-moz-placeholder {
-   font-style: italic;
+
+.searchInterface{
+	border-bottom: ridge;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: black;
+}
+
