@@ -1,0 +1,52 @@
+html,body, .container-fluid{
+	padding: 0px;
+	margin: 0px;
+	overflow-x: hidden;
+	background-color: black;
+}
+
+h1{
+	font-family: 'Raleway', sans-serif;
+	color: red;
+}
+
+nav{
+	z-index: 99;
+}
+
+.intro{
+	background-image: url("http://i.imgur.com/jV3rOhB.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center;
+}
+
+.nav-tabs{
+	position: fixed;
+	border-color: black;
+}
+
+.nav-tabs > li > a{
+	background-color: black;
+	border-color: black;
+	color: white;
+	font-family: 'Raleway', sans-serif;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li > a:hover{
+	background-color: #2E2E2E;
+	color: white;
+	border-color: black;
+}
+
+section{
+	font-family: 'Lato', sans-serif;
+	font-size: 20px;
+	color: white;
+}
+
+h2{
+	
+}
