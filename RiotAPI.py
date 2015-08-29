@@ -24,7 +24,8 @@ class RiotAPI(object):
 			if response.status_code == Consts.NOT_FOUND:
 				return False
 			if response.status_code != Consts.SUCCESS_CODE:
-				print("Unknown Error")
+
+				print("Unknown Error with status code " + str(response.status_code))
 				continue
 			break
 		return response.json()

@@ -17,10 +17,12 @@ item_cache = LRUCache(130)
 champion_cache = LRUCache(130)
 
 def main():
+	#np.set_printoptions(threshold=np.inf)
 	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	#loading the NA match ids
 	data = json.loads(open('./BILGEWATER/NA.json').read())
-	csv_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES]) 
+	csv_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	pop_items = make_items_dict() 
 	data_col_base = len(Consts.STAT_TO_MATRIX)
 	_fill_champ_id_range(csv_data, data_col_base)
 	match_num = 1
@@ -37,7 +39,7 @@ def main():
 			chmp_mtrx_index = CHAMP_TO_MATRIX[champ_name]
 			#these methods return values which must then be input into the matrix
 			offense, defense, utility = _parse_masteries(champ.get('masteries', []))
-			kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl = _parse_stats(champ['stats'], championID)
+			kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, win = _parse_stats(champ['stats'], championID)
 			cs_min, gold_min = _parse_timeline(champ['timeline'])
 			atk_range = csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['atk_range']]
 			#combination so it does not matter which order summoner spells are chosen
@@ -45,8 +47,8 @@ def main():
 			spell2id = champ['spell1Id'] * champ['spell2Id']
 			#place data into matrix
 			csv_data_delta = np.array([offense, defense, utility, kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, 
-				atk_range, cs_min, gold_min, spell1id, spell2id])
-			csv_data[chmp_mtrx_index, data_col_base:data_col_base + len(Consts.VARIABLE_TO_MATRIX)] += csv_data_delta
+				atk_range, cs_min, gold_min, spell1id, spell2id, win])
+			csv_data[chmp_mtrx_index, data_col_base + 1:data_col_base + len(Consts.VARIABLE_TO_MATRIX) + 1] += csv_data_delta
 			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['offense']] += offense
 			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['defense']] += defense
 			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['utility']] += utility
@@ -63,14 +65,24 @@ def main():
 			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['gold_min']] += gold_min
 			#these methods input data directly into matrix
 			csv_data = _parse_runes(champ.get('runes', []), csv_data, chmp_mtrx_index)
-			csv_data = _parse_items(champ['stats'], csv_data, chmp_mtrx_index)
+			csv_data = _parse_items(champ['stats'], csv_data, chmp_mtrx_index, pop_items)
 			
 			#add 1 to champion counter	 
 			csv_data[chmp_mtrx_index, Consts.BLACK_MARKET_FEATURES-1]+=1
 		if SHOW_MATRIX:
 			print(csv_data)
 		match_num+=1
-	np.savetxt('data.csv', csv_data, delimiter= ",", header = "Champion", comments = "")
+	np.savetxt('data.csv', csv_data, delimiter= ",", comments = "")
+	with open('item_dict.json', 'w') as fp:
+		json.dump(pop_items, fp)
+
+def make_items_dict():
+	champ_dict = {}
+	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
+	champs = api.get_all_champs()
+	for champ in champs['data'].keys():
+		champ_dict[champ] = {}
+	return champ_dict
 
 def _fill_champ_id_range(csv_data, data_col_base):
 	#fill out champ ids and attack range
@@ -121,7 +133,12 @@ def _parse_stats(stats, champid):
 	dmg_taken = stats['totalDamageTaken']
 	team_jgl = stats['neutralMinionsKilledTeamJungle']
 	enemy_jgl = stats['neutralMinionsKilledEnemyJungle']
-	return kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl
+	winner = stats['winner']
+	if winner is False:
+		win = 0
+	else:
+		win = 1
+	return kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, win
 
 def _parse_timeline(timeline):
 	cs_min_dict = timeline['creepsPerMinDeltas']
@@ -159,7 +176,7 @@ def _parse_runes(runes, csv_data, champidx):
 		rune_cache.place(runeId, cur_rune)
 	return csv_data
 
-def _parse_items(items, csv_data, champidx):
+def _parse_items(items, csv_data, champidx, pop_items):
 	#trinket not taken into consideration
 	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	item1 = items['item0']
@@ -184,6 +201,13 @@ def _parse_items(items, csv_data, champidx):
 			data_col = Consts.STAT_TO_MATRIX[key]
 			csv_data[champidx, data_col]+= value
 		item_cache.place(item, cur_item)
+		#put item in item dict
+		name = _get_name(champidx)
+		item_dict = pop_items[name]
+		if item not in item_dict:
+			item_dict[item] = 1
+		else:
+			item_dict[item] += 1
 	return csv_data
 
 if __name__ == "__main__":

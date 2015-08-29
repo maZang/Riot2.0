@@ -2,7 +2,7 @@
 BLACK_MARKET_CHAMPIONS = 126
 #FlatArmorMod, FlatAttackSpeedMod,...rPercentTimeDeadModPerLevel, Range, Kills, Deaths, Assists, CS/min, physical damage, magic damage, true damage, 
 #damage taken, team jgl, enemy jgl, GoldEarned/min, Offense, Defense, Utility, spell1id, spell2id, 
-BLACK_MARKET_FEATURES = 83 #filler
+BLACK_MARKET_FEATURES = 85 
 
 #Error Code
 RATE_ERROR_CODE = 429
@@ -118,5 +118,6 @@ VARIABLE_TO_MATRIX = {
 	'cs_min': 14,
 	'gold_min': 15,
 	'spell1id': 16,
-	'spell2id': 17 
+	'spell2id': 17,
+	 'win': 18
 }
