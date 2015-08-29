@@ -1,8 +1,14 @@
+//IFFE
 (function(){
 
 
+
+	//creating app
 	var app = angular.module("champPuller", []);
 
+
+
+	//PictureController
 	var PictureController = function($scope, $http){
 
 	var pictureReady = function(response){
@@ -23,6 +29,24 @@
 
 
 
+	//TableController
+	var TableController = function($scope, $http){
+		var champDict = {};
+
+		$http.get("champ_dict.json").success(function(data){
+			champDict = data;
+		});
+
+		$('.winRate').html(champDict['Aatrox']);
+	};
+
+
+
+	//assigning controllers to Angular app
 	app.controller("PictureController" , ["$scope", "$http", PictureController]);
+	app.controller("TableController", ["$scope", "$http", TableController]);
+
+
+
 
 }());
