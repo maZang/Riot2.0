@@ -46,9 +46,7 @@
 					<div class="row" id="searchRow">
 						<div class="col-md-4"></div>
 						<div class="col-md-3">
-							{{champName}}
 							<input type="search" class="form-control" required placeholder="Champion name here (e.g. Aatrox)" ng-model="champName"/>
-		
 						</div>
 						<div class="col-md-1">
 							<input type="submit" class="btn btn-info form-control" value="Search"/>
@@ -60,7 +58,7 @@
 					<h2 class ="text-center">{{errorMsg}}</h2>
 				</div>
 				<div>
-					<img ng-src="http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/{{champName}}.png" >
+					<img ng-show="champion" ng-src="http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/{{champName}}.png" >
 				</div>
 			</section>
 		</div>

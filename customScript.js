@@ -6,7 +6,8 @@
 	var PictureController = function($scope, $http){
 
 	var pictureReady = function(response){
-		$scope.champion = response.data
+		$scope.champion = response.data;
+		$scope.errorMsg = "";
 	}
 
 	var ifError = function(noChamp){
