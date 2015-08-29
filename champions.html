@@ -39,24 +39,24 @@
 				<button class="btn btn-default center-block center-text"><a href="https://github.com/maZang/Riot2.0/">View Source Code <i class="fa fa-github"></i></a></button>
 				<br><br><br>
 			</div>
-			<section>
+			<section ng-controller="PictureController">
 				<form class="form-horizontal" role="form">
 					<h2 class="text-center">What champion analysis are you looking for?</h2>
 					<br/>
 					<div class="row" id="searchRow">
 						<div class="col-md-10">
-							<input type="search" class="form-control" placeholder="Champion name here (e.g. Aatrox)"/>
+							<input type="search" class="form-control" placeholder="Champion name here (e.g. Aatrox)" ng-model="username"/>
 						</div>
 						<div class="col-md-2">
 							<input type="submit" class="btn btn-info form-control" value="Search"/>
 						</div>
 					</div>
 				</form>
-				<div ng-controller="MainController">
-					<p> {{message}} </p>
+				<div>
+					<h2 class ="text-center">{{errorMsg}}</h2>
 				</div>
 				<div>
-					<!--<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/" + champName + ".png"{{champName}}>-->
+					<!--<img ng-src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/" + champName + ".png"{{champName}}>-->
 				</div>
 			</section>
 		</div>
