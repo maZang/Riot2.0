@@ -47,7 +47,7 @@
 		"Garen": 113, "Galio": 114, "Singed": 115, "Taric": 44, "Veigar": 117, "Fizz": 118, "Rumble": 119, "Soraka": 120, "Corki": 87, "Gangplank": 54, 
 		"Orianna": 59, "Cassiopeia": 123, "Akali": 124, "Janna": 122};
 
-		$.('.winRate').html(champDict[champName]);
+		$('.winRate').html(champDict[$scope.champName]);
 	};
 
 
