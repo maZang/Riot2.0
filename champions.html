@@ -40,25 +40,34 @@
 				<br><br><br>
 			</div>
 			<section ng-controller="PictureController">
-				<form ng-submit = "search(champName)" class="form-horizontal" role="form">
-					<h2 class="text-center">What champion analysis are you looking for?</h2>
-					<br/>
-					<div class="row" id="searchRow">
-						<div class="col-md-4"></div>
-						<div class="col-md-3">
-							<input type="search" class="form-control" required placeholder="Champion name here (e.g. Aatrox)" ng-model="champName"/>
+				<div class="searchInterface">
+					<form ng-submit = "search(champName)" class="form-horizontal" role="form">
+						<h2 class="text-center">What champion analysis are you looking for?</h2>
+						<br/>
+						<div class="row" id="searchRow">
+							<div class="col-md-4"></div>
+							<div class="col-md-3">
+								<input type="search" class="form-control" required placeholder="Champion name here (e.g. Aatrox)" ng-model="champName"/>
+							</div>
+							<div class="col-md-1">
+								<input type="submit" class="btn btn-info form-control" value="Search"/>
+							</div>
+							<div class="col-md-4"></div>
 						</div>
-						<div class="col-md-1">
-							<input type="submit" class="btn btn-info form-control" value="Search"/>
-						</div>
-						<div class="col-md-4"></div>
-					</div>
-				</form>
-				<div>
+					</form>
 					<h2 class ="text-center text-danger">{{errorMsg}}</h2>
 				</div>
-				<div>
-					<img ng-show="champion" ng-src={{imgURL}} >
+				<div ng-show="champion" class="championDetails" ng-style="{'background-image': url({{imgURL}})}">
+					<!--<img ng-show="champion" ng-src={{imgURL}} >-->
+					aaaaaa<br/>
+					aaaaaa<br/>
+					aaaaaa<br/>
+					aaaaaa<br/>
+					aaaaaa<br/>
+					aaaaaa<br/>
+					aaaaaa<br/>
+					aaaaaa<br/>
+					aaaaaa<br/>
 				</div>
 			</section>
 		</div>
