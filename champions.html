@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en">
 
 	<!-- AngularJS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
@@ -23,7 +23,7 @@
 		<link rel="shortcut icon" href="./bilgewater.ico">
 	</head>
 
-	<body>
+	<body  ng-app="champPuller">
 		<div class="container-fluid">
 			<nav>
 				<ul class="nav nav-justified nav-tabs">
@@ -53,7 +53,7 @@
 					</div>
 				</form>
 				<div ng-controller="MainController">
-					{{message}}
+					<p> {{message}} </p>
 				</div>
 				<div>
 					<!--<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/" + champName + ".png"{{champName}}>-->
