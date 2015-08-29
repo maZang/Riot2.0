@@ -23,12 +23,15 @@ def main():
 	data = json.loads(open('./BILGEWATER/NA.json').read())
 	csv_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
 	pop_items = make_items_dict() 
+	team_comps = {}
 	data_col_base = len(Consts.STAT_TO_MATRIX)
 	_fill_champ_id_range(csv_data, data_col_base)
 	match_num = 1
 	for matchid in data:
 		print("On match number " + str(match_num))
 		match = api.get_match_info(matchid, {'includeTimeline': True})
+		win_team = []
+		lose_team = []
 		for champ in match['participants']:
 			#get champ id and name
 			championID = champ['championId']
@@ -41,13 +44,13 @@ def main():
 			offense, defense, utility = _parse_masteries(champ.get('masteries', []))
 			kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, win = _parse_stats(champ['stats'], championID)
 			cs_min, gold_min = _parse_timeline(champ['timeline'])
-			atk_range = csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['atk_range']]
 			#combination so it does not matter which order summoner spells are chosen
 			spell1id = champ['spell2Id'] + champ['spell1Id']
 			spell2id = champ['spell1Id'] * champ['spell2Id']
 			#place data into matrix
+			#attack range not changed because data is normalized anyway
 			csv_data_delta = np.array([offense, defense, utility, kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, 
-				atk_range, cs_min, gold_min, spell1id, spell2id, win])
+				0, cs_min, gold_min, spell1id, spell2id, win])
 			csv_data[chmp_mtrx_index, data_col_base + 1:data_col_base + len(Consts.VARIABLE_TO_MATRIX) + 1] += csv_data_delta
 			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['offense']] += offense
 			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['defense']] += defense
@@ -69,12 +72,36 @@ def main():
 			
 			#add 1 to champion counter	 
 			csv_data[chmp_mtrx_index, Consts.BLACK_MARKET_FEATURES-1]+=1
+
+			#add to team list
+			if win == 1:
+				win_team.append(champ_name)
+			else:
+				lose_team.append(champ_name)
 		if SHOW_MATRIX:
 			print(csv_data)
+		win_team = win_team.sort()
+		lose_team = lose_team.sort()
+		team_comps = add_to_team_comps(win_team, lose_team, team_comps)
 		match_num+=1
 	np.savetxt('data.csv', csv_data, delimiter= ",", comments = "")
 	with open('item_dict.json', 'w') as fp:
 		json.dump(pop_items, fp)
+	with open('team_dict.json', 'w') as fp:
+		json.dump(team_comps, fp)
+
+def add_to_team_comps(win_team, lose_team, team_comps):
+	if win_team not in team_comps:
+		team_comps[win_team] = (1, 1)
+	else:
+		win, games = team_comps[win_team]
+		team_comps[win_team] = (win + 1, games + 1)
+	if lose_team not in team_comps:
+		team_comps[lose_team]= (0, 1)
+	else:
+		win, games = team_comps[lose_team]
+		team_comps[lose_team] = (win, games + 1)
+	return team_comps
 
 def make_items_dict():
 	champ_dict = {}
