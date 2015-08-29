@@ -31,13 +31,13 @@
 
 	//TableController
 	var TableController = function($scope, $http){
-		var champDict = {};
+		var champDict = [2,3,4,5];
 
 		$http.get("champ_dict.json").success(function(data){
 			champDict = data;
 		});
 
-		$('.winRate').html(champDict['Aatrox']);
+		$('.winRate').html(champDict[0]);
 	};
 
 
