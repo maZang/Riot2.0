@@ -74,42 +74,40 @@
 					<br/>
 					<br/>
 					<h2 class="text-center">Popular Items</h2>
-					<br/>
 					<div class="row">
 						<div class="itemRow text-center">
 							<div class="itemImage" ng-repeat="item in itemInfo">
-								<div class="col-md-1">
-									<img src="{{item.url}}"><br/>
-									{{item.item_win * 100 | number:2}}%
-								</div>
+								<img src="{{item.url}}"><br/>
+								{{item.item_win * 100 | number:2}}%
 							</div>
 						</div>
-						<div class="col-md-2"></div>
 					</div>
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Role</th>
-									<th>Kills</th>
-									<th>Deaths</th>
-									<th>Assists</th>
-									<th>CS/min</th>
-									<th>Gold/min</th>
-									<th>Win Rate</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="clf in champData">
-									<td class="classification">{{clf.role}}</td>
-									<td class="kills">{{clf.kills | number:2}}</td>
-									<td class="deaths">{{clf.deaths | number:2}}</td>
-									<td class="assists">{{clf.assists | number:2}}</td>
-									<td class="cs_min">{{clf.cs_min | number:2}}</td>
-									<td class="gold_min">{{clf.gold_min | number:1}}</td>
-									<td class="win_rate">{{clf.win_rate * 100 | number:2}}%</td>
-								</tr>
-							</tbody>
-						</table>
+					<br/>
+					<br/>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Role</th>
+								<th>Kills</th>
+								<th>Deaths</th>
+								<th>Assists</th>
+								<th>CS/min</th>
+								<th>Gold/min</th>
+								<th>Win Rate</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="clf in champData">
+								<td class="classification">{{clf.role}}</td>
+								<td class="kills">{{clf.kills | number:2}}</td>
+								<td class="deaths">{{clf.deaths | number:2}}</td>
+								<td class="assists">{{clf.assists | number:2}}</td>
+								<td class="cs_min">{{clf.cs_min | number:2}}</td>
+								<td class="gold_min">{{clf.gold_min | number:1}}</td>
+								<td class="win_rate">{{clf.win_rate * 100 | number:2}}%</td>
+							</tr>
+						</tbody>
+					</table>
 					<br/>
 				</div>
 			</section>
