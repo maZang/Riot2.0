@@ -66,13 +66,18 @@
 					<br/>
 					<br/>
 					<h2 class="text-center">Popular Items</h2>
-					<div class="itemImage" ng-repeat="url in imgURLitem">
-						<img src="{{url}}">
+					<div class="row">
+						<div class="itemImage" ng-repeat="url in imgURLitem">
+							<div class="col-md-1">
+								<img src="{{url}}">
+							</div>
+						</div>
+						<div class="col-md-2"></div>
 					</div>
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th>	</th>
+									<th>Role</th>
 									<th>Kills</th>
 									<th>Deaths</th>
 									<th>Assists</th>
