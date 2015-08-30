@@ -82,8 +82,28 @@ input{
 	border-color: #B20000;
 }
 
+.statement{
+	font-size: 30px;
+	/*background-color: #2E2E2E;*/
+	color: red;
+	border-style: inset;
+	border-color: blue; 
+	padding: 5px; 
+}
+
+.myThumbnail{
+	border: solid;
+	border-color: purple;
+	height: 60px;
+	width: auto;
+}
+
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
 	background-color: black;
+}
+
+.table{
+	margin: 0, 10px, 0, 10px;
 }
 
 .itemImage{
@@ -120,4 +140,10 @@ input{
 .autocomplete li.active .highlight {
   background: #666;
   color: #fff;
+}
+
+ul{
+	list-style-type: none;
+	/*padding: 0;*/
+	margin: 0;
 }
