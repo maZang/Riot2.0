@@ -21,7 +21,7 @@
 			$scope.errorMsg = "";
 			$scope.imgURLchamp = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + $scope.champName + "_0.jpg";
 			$scope.champData = champDict[$scope.champName];
-			console.log(itemDict[$scope.champName]);
+			console.log($scope.itemInfo);
 		};
 
 		var ifError = function(noChamp){
@@ -38,9 +38,11 @@
 
 			$scope.imgURLitem = [];
 			$scope.itemWinRate = [];
+			$scope.itemInfo = [];
 			for(var pair in itemDict[$scope.champName]){
 				$scope.imgURLitem.push("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/item/" + itemDict[$scope.champName][pair][0] + ".png");
-				$scope.itemWinRate.push(itemDict[$scope.champName][pair][1])
+				$scope.itemWinRate.push(itemDict[$scope.champName][pair][1]);
+				$scope.itemInfo.push([$scope.imgURLitem, $scope.itemWinRate]);
 			}
 		};
 		
