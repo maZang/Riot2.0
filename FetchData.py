@@ -170,16 +170,16 @@ def find_cluster(kmean, scaler, champ_data):
 	return kmean.predict(scaled_data)[0]
 
 def add_to_team_comps(win_team, lose_team, team_comps):
-	if win_team not in team_comps:
-		team_comps[win_team] = (1, 1)
+	if str(win_team) not in team_comps:
+		team_comps[str(win_team)] = (1, 1)
 	else:
-		win, games = team_comps[win_team]
-		team_comps[win_team] = (win + 1, games + 1)
-	if lose_team not in team_comps:
-		team_comps[lose_team]= (0, 1)
+		win, games = team_comps[str(win_team)]
+		team_comps[str(win_team)] = (win + 1, games + 1)
+	if str(lose_team) not in team_comps:
+		team_comps[str(lose_team)]= (0, 1)
 	else:
-		win, games = team_comps[lose_team]
-		team_comps[lose_team] = (win, games + 1)
+		win, games = team_comps[str(lose_team)]
+		team_comps[str(lose_team)] = (win, games + 1)
 	return team_comps
 
 def make_items_dict():
