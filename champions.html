@@ -59,7 +59,7 @@
 					</form>
 					<h2 class ="text-center text-danger">{{errorMsg}}</h2>
 				</div>
-				<div ng-if="champion" class="championDetails" ng-style="{'background-image': 'url(' +imgURLchamp + ')', 'background-repeat': 'no-repeat',
+				<div ng-if="champion" class="championDetails" ng-style="{'background-image': 'url(' +imgURLchamp + ')', 'background-repeat': 'repeat',
 				'background-size': '100%'}">
 					<br/>
 					<br/>
@@ -101,7 +101,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="clf in champData">
+							<tr ng-repeat="clf in champData | orderBy:'-win_rate'">
 								<td class="classification">{{clf.role}}</td>
 								<td class="kills">{{clf.kills | number:2}}</td>
 								<td class="deaths">{{clf.deaths | number:2}}</td>
