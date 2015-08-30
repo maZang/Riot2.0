@@ -24,6 +24,7 @@
 			$scope.imgURLchamp = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + $scope.champName + "_0.jpg";
 			$scope.champData = champDict[$scope.champName];
 			$scope.champRole = champRoles[$scope.champName];
+			$scope.champname = $scope.champName;
 		};
 
 		var ifError = function(noChamp){
