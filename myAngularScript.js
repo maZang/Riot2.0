@@ -11,28 +11,6 @@
 	//PictureController
 	var PictureController = function($scope, $http){
 
-	var pictureReady = function(response){
-		$scope.champion = true;
-		$scope.errorMsg = "";
-		$scope.imgURL = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + $scope.champName + "_0.jpg"; 
-	}
-
-	var ifError = function(noChamp){
-		$scope.champion = false;
-		$scope.errorMsg = "Champion not found!";
-	}
-	
-	$scope.search = function(champName){
-		$http.get("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champName + ".png").then(pictureReady, ifError);
-	}
-	};
-
-
-
-	//TableController
-	var TableController = function($scope, $http){
-
-		//champDict assignment
 		var champDict = {"Pantheon": 0, "Vladimir": 85, "Malzahar": 1, "Zed": 2, "Leblanc": 3, "Tryndamere": 62, "Swain": 5, "Nami": 6, "Irelia": 7, 
 		"Leona": 8, "Shen": 9, "Sona": 10, "Jax": 11, "Nocturne": 12, "MissFortune": 14, "Graves": 16, "Khazix": 36, "Chogath": 17, "Nautilus": 18, 
 		"Trundle": 19, "Brand": 20, "Alistar": 101, "Maokai": 21, "MonkeyKing": 22, "TwistedFate": 23, "Sivir": 24, "Warwick": 25, "Azir": 125, "Elise": 26, 
@@ -47,15 +25,28 @@
 		"Garen": 113, "Galio": 114, "Singed": 115, "Taric": 44, "Veigar": 117, "Fizz": 118, "Rumble": 119, "Soraka": 120, "Corki": 87, "Gangplank": 54, 
 		"Orianna": 59, "Cassiopeia": 123, "Akali": 124, "Janna": 122};
 
-		$scope.winRate = champDict[$scope.champName];
-	
-	};
+		var pictureReady = function(response){
+			$scope.champion = true;
+			$scope.errorMsg = "";
+			$scope.imgURL = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + $scope.champName + "_0.jpg"; 
+			$scope.winRate = champDict[$scope.champName];
+		}
 
+		var ifError = function(noChamp){
+			$scope.champion = false;
+			$scope.errorMsg = "Champion not found!";
+		}
+	
+		$scope.search = function(champName){
+			$http.get("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champName + ".png").then(pictureReady, ifError);
+		}
+
+		
+	};
 
 
 	//assigning controllers to Angular app
 	app.controller("PictureController" , ["$scope", "$http", PictureController]);
-	app.controller("TableController", ["$scope", "$http", TableController]);
 
 
 
