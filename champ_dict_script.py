@@ -19,6 +19,7 @@ def main():
 	tank_data = _normalize_data(pd.read_csv('./role_dataTank.csv').values)
 	data_list = [data, phys_data, mgc_data, ass_data, jgl_data, mage_data, marksman_data, support_data, tank_data]
 	new_champ_dict = {}
+	new_champ_dict_ovl = {}
 	for row in range(0, data.shape[0]):
 		champ_name = _get_name(row)
 		new_champ_dict[champ_name] = {}
@@ -42,9 +43,13 @@ def main():
 				dict_data['health_built'] = data_table[row, Consts.STAT_TO_MATRIX['FlatHPPoolMod']]
 				dict_data['ad_built'] = data_table[row, Consts.STAT_TO_MATRIX['FlatPhysicalDamageMod']]
 				dict_data['ap_built'] = data_table[row, Consts.STAT_TO_MATRIX['FlatMagicDamageMod']]
-			new_champ_dict[champ_name][roles[idx]] = dict_data
+				new_champ_dict_ovl[champ_name] = dict_data 
+			else:
+				new_champ_dict[champ_name][roles[idx]] = dict_data
 	with open('new_champ_dict.json', 'w') as fp:
 		json.dump(new_champ_dict, fp)
+	with open('new_champ_dict_ovl.json', 'w') as fp:
+		json.dump(new_champ_dict_ovl, fp)
 
 def get_summoner_spells(spell1, spell2):
 	maths = spell1 ** 2 - 4 * spell2
