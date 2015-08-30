@@ -97,10 +97,8 @@ input{
 }
 
 .myThumbnail{
-	border: solid;
 	height: 60px;
 	width: auto;
-	border-color: transparent;
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
