@@ -14,10 +14,11 @@ from sklearn.datasets import load_digits
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import scale
 
-roles = {0: "Support", 1: "Marksman", 2: "Mage", 3: "Tank", 4: "Fighter"}
+roles = {0: "Assassin", 1: "Marksman", 2: "Physical Bruiser", 3: "Jungler", 4: "Mage", 5: "Support", 6: "Tank", 7: "Magical Bruiser"}
 
 #previously main function
 def get_k_learn():
+#def main():
 	data = pd.read_csv("./data1.csv")
 	X = data.values
 	with open('champ_dict.json', 'r') as df:
@@ -33,7 +34,7 @@ def get_k_learn():
 	#X = scipy.delete(X, len(Consts.STAT_TO_MATRIX) - 1 + Consts.VARIABLE_TO_MATRIX['gold_min'], 1)
 	#num_features_removed += 1
 	#initialize centroids
-	initial_centroids = ['Alistar', 'Ashe', 'Leblanc', 'Maokai', 'Renekton']
+	initial_centroids = ['Riven', 'Ashe', 'Renekton', 'LeeSin', 'Annie', 'Braum', 'Maokai', 'Singed']
 	init_centroid_mtrx = np.empty(shape=[len(initial_centroids), Consts.BLACK_MARKET_FEATURES - num_features_removed])
 	row_index = 0
 	for champ in initial_centroids:
@@ -114,5 +115,5 @@ def _preprocess(mtrx):
 	return mtrx_scaled, bad_values, scaler
 	#return mtrx
 
-#if __name__ == "__main__":
-#	main()
+if __name__ == "__main__":
+	main()

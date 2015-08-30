@@ -102,8 +102,11 @@ def second_main():
 	support_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
 	mage_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
 	tank_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
-	fighter_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
-	data_list = {'Marksman': marksman_data, 'Support': support_data, 'Mage': mage_data, 'Tank': tank_data, 'Fighter': fighter_data}
+	phys_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	mgc_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	jgler_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	ass_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
+	data_list = {'Magical Bruiser': mgc_data, 'Assassin': ass_data, 'Jungler': jgler_data, 'Marksman': marksman_data, 'Support': support_data, 'Mage': mage_data, 'Tank': tank_data, 'Physical Bruiser': phys_data}
 	for role in data_list:
 		_fill_champ_id_range(data_list[role], data_col_base)
 	#initialize k-cluster
