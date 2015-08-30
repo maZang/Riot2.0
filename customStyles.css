@@ -79,9 +79,9 @@ input{
 
 .searchInterface{
 	border-bottom: ridge;
+	border-color: #B20000;
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: black;
+	background-color: black;
 }
-

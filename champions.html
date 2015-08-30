@@ -38,7 +38,7 @@
 				<button class="btn btn-default center-block center-text"><a href="https://github.com/maZang/Riot2.0/">View Source Code <i class="fa fa-github"></i></a></button>
 				<br><br><br>
 			</div>
-			<section ng-controller="PictureController">
+			<section ng-controller="MainController">
 				<div class="searchInterface">
 					<form ng-submit = "search(champName)" class="form-horizontal" role="form">
 						<h2 class="text-center">What champion overview are you looking for?</h2>
@@ -58,41 +58,47 @@
 				</div>
 				<div ng-if="champion" class="championDetails" ng-style="{'background-image': 'url(' +imgURL + ')', 'background-repeat': 'no-repeat',
 				'background-size': '100%'}">
-					aaaaaa<br/>
-					aaaaaa<br/>
-					aaaaaa<br/>
-					aaaaaa<br/>
-					aaaaaa<br/>
-					aaaaaa<br/>
-					aaaaaa<br/>
-					aaaaaa<br/>
-					aaaaaa<br/>
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>Kills</th>
-								<th>Deaths</th>
-								<th>Assists</th>
-								<th>CS/min</th>
-								<th>Gold/min</th>
-								<th>Win Rate</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="kills">9.0</td>
-								<td class="deaths">2.2</td>
-								<td class="assists">3.3</td>
-								<td class="cs">124</td>
-								<td class="gold">23232</td>
-								<td class="winRate">{{winRate}}</td>
-							</tr>
-						</tbody>
-					</table>
-					aaaaaa<br/>
-					aaaaaa<br/>
-					aaaaaa<br/>
-					aaaaaa<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<div class="row">
+						<div class="col-md-6">
+							<h2 class="text-center">Popular Items</h2>
+
+						</div>
+						<div class="col-md-1">
+						</div>
+						<div class="col-md-4">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Kills</th>
+										<th>Deaths</th>
+										<th>Assists</th>
+										<th>CS/min</th>
+										<th>Gold/min</th>
+										<th>Win Rate</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="kills">9.0</td>
+										<td class="deaths">2.2</td>
+										<td class="assists">3.3</td>
+										<td class="cs">124</td>
+										<td class="gold">23232</td>
+										<td class="winRate">{{winRate}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col-md-1">
+						</div>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
 				</div>
 			</section>
 		</div>
