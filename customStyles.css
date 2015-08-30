@@ -84,18 +84,22 @@ input{
 
 .statement{
 	font-size: 30px;
-	/*background-color: #2E2E2E;*/
-	color: red;
+	background-color: transparent;
+	color: white;
 	border-style: inset;
-	border-color: blue; 
+	border-color: white; 
 	padding: 5px; 
+}
+
+.statement:hover{
+	background-color: black;
 }
 
 .myThumbnail{
 	border: solid;
-	border-color: purple;
 	height: 60px;
 	width: auto;
+	border-color: transparent;
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
@@ -109,6 +113,14 @@ input{
 .itemImage{
 	padding-right: 5px;
 	display: inline-block;
+}
+
+.itemRow{
+	padding: 10px;
+}
+
+.itemRow:hover{
+	background-color: black;
 }
 
 .autocomplete{
