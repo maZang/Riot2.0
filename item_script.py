@@ -6,7 +6,7 @@ def main():
 		pop_items= json.load(df)
 	for champ in pop_items:
 		new_item_list = []
-		item_dict = pop_items[champ]	
+		item_dict = pop_items[champ]
 		for item in range(0, 10):
 			item_idx = get_max_val_idx(item_dict)
 			del item_dict[item_idx]

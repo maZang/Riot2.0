@@ -43,7 +43,7 @@
 
 			$scope.imgURLitem = [];
 			for(var itemID in itemDict[$scope.champName]){
-				$scope.imgURLitem.push("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/" + itemDict[$scope.champName][itemID] + ".png");
+				$scope.imgURLitem.push("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/item/" + itemDict[$scope.champName][itemID] + ".png");
 			}
 		};
 		
