@@ -4,7 +4,6 @@ html,body, .container-fluid{
 	overflow-x: hidden;
 	overflow-y: visible;
 	background-color: #191919;
-	height: 100%;
 }
 
 h1{

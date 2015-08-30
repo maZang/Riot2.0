@@ -59,7 +59,7 @@ def get_summoner_spells(spell1, spell2):
 	y = 1/2 * (math.sqrt(spell1 ** 2- 4 * spell2)  + spell1)
 	x = rounding(x)
 	y = rounding(y)
-	options = {1: "SummonerBoost", 12: "SummonerTeleport", 14: "SummonerDot", 6: "SummonerHaste", 7: "SummonerHeal", 11: "SummonerSmite", 3: "SummonerExhaust", 13: "SummonerMana", 2: "SummonerClairvoyance", 21: "SummonerBarrier", 4: "SummonerFlash"}
+	options = {1: "Cleanse", 12: "Teleport", 14: "Ignite", 6: "Ghost", 7: "Heal", 11: "Smite", 3: "Exhaust", 13: "Clarity", 2: "Clairvoyance", 4: "Flash"}
 	return options[x], options[y]
 
 def rounding(num):
@@ -81,10 +81,7 @@ def rounding(num):
 		return 12
 	if num >= 12.5 and num < 13.5:
 		return 13
-	if num >= 13.5 and num < 17.5:
-		return 14
-	else:
-		return 21
+	return 14
 
 def _normalize_data(data):
 	num_games = data[:, Consts.BLACK_MARKET_FEATURES - 1]
