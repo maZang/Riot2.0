@@ -4,6 +4,7 @@ html,body, .container-fluid{
 	overflow-x: hidden;
 	overflow-y: visible;
 	background-color: #191919;
+	height: 100%;
 }
 
 h1{
@@ -123,8 +124,6 @@ input{
 
 .itemRow:hover{
 	background-color: black;
-	border: solid;
-	border-color: white;
 }
 
 .autocomplete{
