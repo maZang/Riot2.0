@@ -7,7 +7,6 @@
 	var app = angular.module("champPuller", []);
 
 
-
 	//MainController
 	var MainController = function($scope, $http){
 
@@ -39,12 +38,12 @@
 			$scope.errorMsg = "";
 			$scope.imgURLchamp = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + $scope.champName + "_0.jpg"; 
 			$scope.winRate = champDict[$scope.champName];
-		}
+		};
 
 		var ifError = function(noChamp){
 			$scope.champion = false;
 			$scope.errorMsg = "Champion not found!";
-		}
+		};
 
 		// var itemPictureReady = function(response){
 		// 	$scope.imgURLitem="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/" + $scope.itemID + ".png";
@@ -53,18 +52,18 @@
 		$scope.search = function(champName){
 			$http.get("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champName + ".png").then(champPictureReady, ifError);
 
-			for(var itemID in itemDict.champName){
-				$scope.imgURLitem.push("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/" + $scope.itemID + ".png");
+			$scope.imgURLitem = [];
+			for(var itemID in itemDict[$scope.champName]){
+				console.log(itemID);
+				$scope.imgURLitem.push("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/" + itemID + ".png");
 			}
-		}
+		};
 		
 	};
 
 
 	//assigning controllers to Angular app
 	app.controller("MainController" , ["$scope", "$http", MainController]);
-
-
 
 
 }());
