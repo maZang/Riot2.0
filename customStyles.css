@@ -124,8 +124,6 @@ input{
 
 .itemRow:hover{
 	background-color: black;
-	border: solid;
-	border-color: white;
 }
 
 .autocomplete{
