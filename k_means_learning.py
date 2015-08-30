@@ -46,7 +46,8 @@ def get_k_learn():
 	return kmean, scaler
 	#clusters = kmean.predict(X)
 	#champ_roles = make_role_dict(clusters, CHAMP_TO_MATRIX)
-	#print(champ_roles)
+	#with open('champ_roles.json', 'w') as fp:
+	#	json.dump(champ_roles, fp)
 
 def plot(X_means):
 	#visualize (code retrieved from sci-kit learn)
@@ -115,5 +116,5 @@ def _preprocess(mtrx):
 	return mtrx_scaled, bad_values, scaler
 	#return mtrx
 
-if __name__ == "__main__":
-	main()
+#if __name__ == "__main__":
+#	main()
