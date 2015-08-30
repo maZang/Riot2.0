@@ -5,7 +5,7 @@ import numpy as np
 
 with open('champ_dict.json', 'r') as df:
 	CHAMP_TO_MATRIX = json.load(df)
-
+roles = {0: "Overall", 1: "Fighter", 2: "Mage", 3: "Marksman", 4: "Support", 5: "Tank"}
 def main():
 	data = _normalize_data(pd.read_csv("./data1.csv").values)
 	fighter_data = _normalize_data(pd.read_csv('./role_dataFighter.csv').values)
@@ -17,9 +17,20 @@ def main():
 	new_champ_dict = {}
 	for row in range(0, data.shape[0]):
 		champ_name = _get_name(row)
-		for data_table in data_list:
-			print(data_table.shape)
-		break
+		new_champ_dict[champ_name] = {}
+		total_games = data[row, Consts.BLACK_MARKET_FEATURES-1]
+		for idx, data_table in enumerate(data_list):
+			dict_data = {}
+			dict_data['kills'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['kills']]
+			dict_data['deaths'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['deaths']]
+			dict_data['assists'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['assists']]
+			dict_data['cs_min'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['cs_min']]
+			dict_data['gold_min'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['gold_min']]
+			dict_data['win_rate'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['win']]
+			dict_data['percent_games_played'] = data_table[row, Consts.BLACK_MARKET_FEATURES-1]/total_games
+			new_champ_dict[champ_name][roles[idx]] = dict_data
+	with open('new_champ_dict.json', 'w') as fp:
+		json.dump(new_champ_dict, fp)
 
 def _normalize_data(data):
 	num_games = data[:, Consts.BLACK_MARKET_FEATURES - 1]
@@ -33,7 +44,7 @@ def _normalize_data(data):
 	zero_fill = np.concatenate((zero_fill, np.reshape(np.array([1]), (1, 1))), axis = 1)
 	for row in bad_values:
 		data[row] = zero_fill
-	for col in range(1, mtrx.shape[1]):
+	for col in range(1, data.shape[1] - 1):
 		data[:, col] = np.divide(data[:, col], num_games)
 	return data 
 
