@@ -85,3 +85,8 @@ input{
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
 	background-color: black;
 }
+
+.itemImage{
+	padding-right: 5px;
+	display: inline-block;
+}

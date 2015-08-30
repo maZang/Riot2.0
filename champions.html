@@ -65,16 +65,16 @@
 					<div class="row">
 						<div class="col-md-6">
 							<h2 class="text-center">Popular Items</h2>
-							<div class="popularItems" ng-repeat="urls in imgURLitem">
-								<img src={{urls}}>
+							<div class="itemImage" ng-repeat="url in imgURLitem">
+									<img src="{{url}}">
 							</div>
 						</div>
-						<div class="col-md-1">
-						</div>
-						<div class="col-md-4">
+						<div class="col-md-1"></div>
+						<div class="col-md-5">
 							<table class="table table-hover">
 								<thead>
 									<tr>
+										<th>	</th>
 										<th>Kills</th>
 										<th>Deaths</th>
 										<th>Assists</th>
@@ -84,13 +84,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td class="kills">9.0</td>
-										<td class="deaths">2.2</td>
-										<td class="assists">3.3</td>
-										<td class="cs">124</td>
-										<td class="gold">23232</td>
-										<td class="winRate">{{winRate}}</td>
+									<tr ng-repeat="clf in champData">
+										<td class="classification">{{champData[0]}}</td>
+										<td class="kills">{{clf.kills | number}}</td>
+										<td class="deaths">{{clf.deaths | number}}</td>
+										<td class="assists">{{clf.assists | number}}</td>
+										<td class="cs_min">{{clf.cs_min | number}}</td>
+										<td class="gold_min">{{clf.gold_min | number}}</td>
+										<td class="win_rate">{{clf.win_rate | number}}</td>
 									</tr>
 								</tbody>
 							</table>
