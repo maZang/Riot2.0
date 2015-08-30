@@ -7,7 +7,7 @@ def main():
 	for champ in pop_items:
 		new_item_list = []
 		item_dict = pop_items[champ]	
-		for item in range(0, 8):
+		for item in range(0, 9):
 			item_idx = get_max_val_idx(item_dict)
 			del item_dict[item_idx]
 			new_item_list.append(item_idx)
