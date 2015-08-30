@@ -37,7 +37,7 @@
 		var pictureReady = function(response){
 			$scope.champion = true;
 			$scope.errorMsg = "";
-			$scope.imgURL = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + $scope.champName + "_0.jpg"; 
+			$scope.imgURLchamp = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + $scope.champName + "_0.jpg"; 
 			$scope.winRate = champDict[$scope.champName];
 		}
 
@@ -48,7 +48,10 @@
 	
 		$scope.search = function(champName){
 			$http.get("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champName + ".png").then(pictureReady, ifError);
-			$http.get("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/" + 1329 + ".png")
+
+			for(var itemID in itemDict.champName){
+				$http.get("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/" + itemID + ".png").then()
+			}
 		}
 		
 	};
