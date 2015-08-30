@@ -37,7 +37,7 @@
 				<br><br><br><br><br><br><br><br><br><br>
 				<h1 class="text-center">Champion Overview</h1>
 				<br><br><br><br><br>
-				<button class="btn btn-default center-block center-text"><a href="https://github.com/maZang/Riot2.0/">View Source Code <i class="fa fa-github"></i></a></button>
+				<button class="btn btn-default text-center center-block"><a href="https://github.com/maZang/Riot2.0/">View Source Code <i class="fa fa-github"></i></a></button>
 				<br><br><br>
 			</div>
 			<section ng-controller="MainController">
@@ -65,42 +65,34 @@
 					<br/>
 					<br/>
 					<br/>
-					<div class="row">
-						<div class="col-md-6">
-							<h2 class="text-center">Popular Items</h2>
-							<div class="itemImage" ng-repeat="url in imgURLitem">
-									<img src="{{url}}">
-							</div>
-						</div>
-						<div class="col-md-1"></div>
-						<div class="col-md-5">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th>	</th>
-										<th>Kills</th>
-										<th>Deaths</th>
-										<th>Assists</th>
-										<th>CS/min</th>
-										<th>Gold/min</th>
-										<th>Win Rate</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="clf in champData">
-										<td class="classification">{{clf.role}}</td>
-										<td class="kills">{{clf.kills | number}}</td>
-										<td class="deaths">{{clf.deaths | number}}</td>
-										<td class="assists">{{clf.assists | number}}</td>
-										<td class="cs_min">{{clf.cs_min | number}}</td>
-										<td class="gold_min">{{clf.gold_min | number}}</td>
-										<td class="win_rate">{{clf.win_rate | number}}</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="col-md-1">
-						</div>
+					<h2 class="text-center">Popular Items</h2>
+					<div class="itemImage" ng-repeat="url in imgURLitem">
+						<img src="{{url}}">
+					</div>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>	</th>
+									<th>Kills</th>
+									<th>Deaths</th>
+									<th>Assists</th>
+									<th>CS/min</th>
+									<th>Gold/min</th>
+									<th>Win Rate</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="clf in champData">
+									<td class="classification">{{clf.role}}</td>
+									<td class="kills">{{clf.kills | number}}</td>
+									<td class="deaths">{{clf.deaths | number}}</td>
+									<td class="assists">{{clf.assists | number}}</td>
+									<td class="cs_min">{{clf.cs_min | number}}</td>
+									<td class="gold_min">{{clf.gold_min | number}}</td>
+									<td class="win_rate">{{clf.win_rate | number}}</td>
+								</tr>
+							</tbody>
+						</table>
 					<br/>
 					<br/>
 					<br/>
