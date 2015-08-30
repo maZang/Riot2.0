@@ -17,14 +17,13 @@ class RiotAPI(object):
 				response = requests.get(Consts.URL['base'].format(proxy=self.region,region=self.region,url=api_url), params=args)
 			else:
 				response = requests.get(Consts.URL['static_base'].format(proxy='global',region=self.region,url=api_url), params=args)
-			#print(response.text)
+			#print(response.url)
 			if response.status_code == Consts.RATE_ERROR_CODE:
 				print("Rate limit exceeded... Currently waiting")
 				continue
 			if response.status_code == Consts.NOT_FOUND:
 				return False
 			if response.status_code != Consts.SUCCESS_CODE:
-
 				print("Unknown Error with status code " + str(response.status_code))
 				continue
 			break

@@ -12,16 +12,22 @@ with open('champ_dict.json', 'r') as df:
 SHOW_MATRIX = True
 
 #cache results of search
-mastery_cache = LRUCache(130)
-rune_cache = LRUCache(130)
-item_cache = LRUCache(130)
-champion_cache = LRUCache(130)
+mastery_cache = LRUCache(150)
+rune_cache = LRUCache(150)
+item_cache = LRUCache(150)
+champion_cache = LRUCache(126)
 
 def main():
 	#np.set_printoptions(threshold=np.inf)
 	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
+	api_euw = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_west'])
+	api_eune = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_nordic_and_east'])
+	api_kr = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['korea'])
 	#loading the NA match ids
-	data = json.loads(open('./BILGEWATER/NA.json').read())
+	data = json.loads(open('./BILGEWATER/EUNE.json').read())
+	data += json.loads(open('./BILGEWATER/KR.json').read())
+	data += json.loads(open('./BILGEWATER/EUW.json').read())
+	data += json.loads(open('./BILGEWATER/NA.json').read())
 	csv_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
 	pop_items = make_items_dict() 
 	team_comps = {}
@@ -30,7 +36,15 @@ def main():
 	match_num = 1
 	for matchid in data:
 		print("On match number " + str(match_num))
-		match = api.get_match_info(matchid, {'includeTimeline': True})
+		if match_num <= 10000:
+			#print(matchid)
+			match = api_eune.get_match_info(matchid, {'includeTimeline': True})
+		elif match_num <= 20000:
+			match = api_kr.get_match_info(matchhid, {'includeTimeline': True})
+		elif match_num <= 30000:
+			match = api_euw.get_match_info(matchhid, {'includeTimeline': True})
+		else: 
+			match = api.get_match_info(matchhid, {'includeTimeline': True})
 		win_team = []
 		lose_team = []
 		for champ in match['participants']:
@@ -53,20 +67,6 @@ def main():
 			csv_data_delta = np.array([offense, defense, utility, kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, 
 				0, cs_min, gold_min, spell1id, spell2id, win])
 			csv_data[chmp_mtrx_index, data_col_base + 1:data_col_base + len(Consts.VARIABLE_TO_MATRIX) + 1] += csv_data_delta
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['offense']] += offense
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['defense']] += defense
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['utility']] += utility
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['kills']] += kills
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['deaths']] += deaths
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['assists']] += assists
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['phys_dmg']] += phys_dmg
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['mgc_dmg']] += mgc_dmg
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['true_dmg']] += true_dmg
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['dmg_taken']] += dmg_taken
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['team_jgl']] += team_jgl
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['enemy_jgl']] += enemy_jgl
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['cs_min']] += cs_min
-			#csv_data[chmp_mtrx_index][data_col_base+Consts.VARIABLE_TO_MATRIX['gold_min']] += gold_min
 			#these methods input data directly into matrix
 			csv_data = _parse_runes(champ.get('runes', []), csv_data, chmp_mtrx_index)
 			csv_data = _parse_items(champ['stats'], csv_data, chmp_mtrx_index, pop_items, True)
@@ -81,9 +81,12 @@ def main():
 				lose_team.append(champ_name)
 		if SHOW_MATRIX:
 			print(csv_data)
-		win_team = win_team.sort()
-		lose_team = lose_team.sort()
+		win_team = tuple(sorted(win_team))
+		#print(win_team)
+		lose_team = tuple(sorted(lose_team))
+		#print(lose_team)
 		team_comps = add_to_team_comps(win_team, lose_team, team_comps)
+		#print(team_comps)
 		match_num+=1
 	np.savetxt('data.csv', csv_data, delimiter= ",", comments = "")
 	with open('item_dict.json', 'w') as fp:
@@ -94,8 +97,14 @@ def main():
 def second_main():
 	#np.set_printoptions(threshold=np.inf)
 	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
+	api_euw = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_west'])
+	api_eune = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_nordic_and_east'])
+	api_kr = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['korea'])
 	#loading the NA match ids
-	data = json.loads(open('./BILGEWATER/NA.json').read())
+	data = json.loads(open('./BILGEWATER/EUW.json').read())
+	data += json.loads(open('./BILGEWATER/EUNE.json').read())
+	data += json.loads(open('./BILGEWATER/KR.json').read())
+	data += json.loads(open('./BILGEWATER/NA.json').read())
 	data_col_base = len(Consts.STAT_TO_MATRIX)
 	#initialize different arrays
 	marksman_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
@@ -114,7 +123,15 @@ def second_main():
 	match_num = 1
 	for matchid in data:
 		print("On match number " + str(match_num))
-		match = api.get_match_info(matchid, {'includeTimeline': True})
+		if match_num <= 10000:
+			#print(matchid)
+			match = api_euw.get_match_info(matchid, {'includeTimeline': True})
+		elif match_num <= 20000:
+			match = api_eune.get_match_info(matchhid, {'includeTimeline': True})
+		elif match_num <= 30000:
+			match = api_kr.get_match_info(matchhid, {'includeTimeline': True})
+		else: 
+			match = api.get_match_info(matchhid, {'includeTimeline': True})
 		for champ in match['participants']:
 			champ_data = np.zeros(shape=[1, Consts.BLACK_MARKET_FEATURES])
 			#get champ id and name
@@ -302,4 +319,5 @@ def _parse_items(items, csv_data, champidx, pop_items, itemDict):
 	return csv_data
 
 if __name__ == "__main__":
-	second_main()
+	#second_main()
+	main()

@@ -32,6 +32,7 @@ def main():
 			dict_data['gold_min'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['gold_min']]
 			dict_data['win_rate'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['win']]
 			dict_data['percent_games_played'] = data_table[row, Consts.BLACK_MARKET_FEATURES-1]/total_games
+			dict_data['role'] = roles[idx]
 			if idx == 0:
 				spell_1 = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['spell1id']]
 				spell_2 = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['spell2id']]
@@ -41,7 +42,7 @@ def main():
 				dict_data['health_built'] = data_table[row, Consts.STAT_TO_MATRIX['FlatHPPoolMod']]
 				dict_data['ad_built'] = data_table[row, Consts.STAT_TO_MATRIX['FlatPhysicalDamageMod']]
 				dict_data['ap_built'] = data_table[row, Consts.STAT_TO_MATRIX['FlatMagicDamageMod']]
-				new_champ_dict[champ_name][roles[idx]] = dict_data
+			new_champ_dict[champ_name][roles[idx]] = dict_data
 	with open('new_champ_dict.json', 'w') as fp:
 		json.dump(new_champ_dict, fp)
 

@@ -30,7 +30,8 @@ API_VERSION = {
 REGIONS = {
 	'europe_nordic_and_east': 'eune',
 	'europe_west': 'euw',
-	'north_america': 'na'
+	'north_america': 'na',
+    'korea' : 'kr'
 }
 
 STAT_TO_MATRIX = {
