@@ -54,7 +54,7 @@
 			$http.get("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champName + ".png").then(champPictureReady, ifError);
 
 			for(var itemID in itemDict.champName){
-				
+				$scope.imgURLitem.push("http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/" + $scope.itemID + ".png");
 			}
 		}
 		
