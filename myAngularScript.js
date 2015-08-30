@@ -40,9 +40,9 @@
 			$scope.itemWinRate = [];
 			$scope.itemInfo = [];
 			for(var pair in itemDict[$scope.champName]){
-				$scope.imgURLitem.push("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/item/" + itemDict[$scope.champName][pair][0] + ".png");
-				$scope.itemWinRate.push(itemDict[$scope.champName][pair][1]);
-				$scope.itemInfo.push([$scope.imgURLitem, $scope.itemWinRate]);
+				$scope.imgURLitem = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/item/" + itemDict[$scope.champName][pair][0] + ".png";
+				$scope.itemWinRate = itemDict[$scope.champName][pair][1];
+				$scope.itemInfo.push({"url": $scope.imgURLitem, "item_win": $scope.itemWinRate});
 			}
 		};
 		

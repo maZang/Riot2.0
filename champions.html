@@ -69,7 +69,8 @@
 					<div class="row">
 						<div class="itemImage" ng-repeat="item in itemInfo">
 							<div class="col-md-1">
-								<img src="{{item[0]}}">
+								<img src="{{item.url}}"><br/>
+								{{item.item_win | number}}
 							</div>
 						</div>
 						<div class="col-md-2"></div>
