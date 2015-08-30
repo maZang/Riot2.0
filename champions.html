@@ -70,7 +70,7 @@
 						<div class="itemImage" ng-repeat="item in itemInfo">
 							<div class="col-md-1">
 								<img src="{{item.url}}"><br/>
-								{{item.item_win | number}}
+								{{item.item_win * 100 | number:2}}%
 							</div>
 						</div>
 						<div class="col-md-2"></div>
