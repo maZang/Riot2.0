@@ -23,12 +23,14 @@
 			$scope.champThumbnail = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + $scope.champName + ".png"
 			$scope.imgURLchamp = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + $scope.champName + "_0.jpg";
 			$scope.champData = champDict[$scope.champName];
+			$scope.champDataOverall = champDictOverall[$scope.champName];
 			$scope.champRole = champRoles[$scope.champName];
 			$scope.champname = $scope.champName;
 			$scope.spell1 = champDictOverall[$scope.champName].spell1;
 			$scope.spell2 = champDictOverall[$scope.champName].spell2;
 			$scope.spell1URL = "http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/" + $scope.spell1 + ".png";
 			$scope.spell2URL = "http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/" + $scope.spell2 + ".png";
+			console.log(typeof($scope.champData));
 		};
 
 		var ifError = function(noChamp){

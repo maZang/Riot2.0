@@ -85,15 +85,8 @@ input{
 
 .statement{
 	font-size: 30px;
-	background-color: transparent;
-	color: white;
-	border-style: inset;
-	border-color: white; 
+	color: white; 
 	padding: 5px; 
-}
-
-.statement:hover{
-	background-color: black;
 }
 
 .myThumbnail{
@@ -116,11 +109,15 @@ input{
 
 .itemRow{
 	padding: 5px 0 5px 0;
-	border: solid;
-	border-color: white;
 }
 
-.itemRow:hover{
+.borderedElement{
+	border: inset;
+	border-color: white;
+	width: 60%;
+}
+
+.borderedElement:hover{
 	background-color: black;
 }
 
@@ -159,4 +156,8 @@ ul{
 	list-style-type: none;
 	/*padding: 0;*/
 	margin: 0;
+}
+
+.shrinkWidth{
+	width: 90%;
 }

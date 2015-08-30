@@ -63,56 +63,84 @@
 				'background-size': '100%'}">
 					<br/>
 					<br/>
-					<div class="row">
-						<div class="col-md-3"></div>
-						<div class="text-center statement col-md-6">
-							<img class="myThumbnail" src="{{champThumbnail}}">
-							{{champname}} is primarily played as a {{champRole | lowercase}}.
-							<br/>
-							The most popular spells this champion uses are:
-							<div class="myThumbnail">
-								<img src="{{spell1URL}}">
-								<img src="{{spell2URL}}">
+					<div class="borderedElement text-center center-block">
+						<div class="row">
+							<div class="text-center statement">
+								<img class="myThumbnail" src="{{champThumbnail}}">
+								<span class="text-primary">{{champname}}</span> is primarily played as a {{champRole | lowercase}}.
+								<br/>
+								Most <span class="text-primary">{{champname}}</span> players pick:
+								<div class="myThumbnail">
+									<img src="{{spell1URL}}">
+									<img src="{{spell2URL}}">
+								</div>
+							</div> 
+
+						</div>
+						<br/>
+						<div class="itemRow text-center">
+							<h2 class="text-center">Popular Items</h2>
+							<div class="itemImage" ng-repeat="item in itemInfo">
+								<img src="{{item.url}}"><br/>
+								{{item.item_win * 100 | number:2}}%
 							</div>
-						</div> 
-						<div class="col-md-3"></div>
-					</div>
-					<br/>
-					<br/>
-					<div class="itemRow text-center">
-						<h2 class="text-center">Popular Items</h2>
-						<div class="itemImage" ng-repeat="item in itemInfo">
-							<img src="{{item.url}}"><br/>
-							{{item.item_win * 100 | number:2}}%
 						</div>
 					</div>
 					<br/>
 					<br/>
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>Role</th>
-								<th>Kills</th>
-								<th>Deaths</th>
-								<th>Assists</th>
-								<th>CS/min</th>
-								<th>Gold/min</th>
-								<th>Win Rate</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="clf in champData | orderBy:'-win_rate'">
-								<td class="classification">{{clf.role}}</td>
-								<td class="kills">{{clf.kills | number:2}}</td>
-								<td class="deaths">{{clf.deaths | number:2}}</td>
-								<td class="assists">{{clf.assists | number:2}}</td>
-								<td class="cs_min">{{clf.cs_min | number:2}}</td>
-								<td class="gold_min">{{clf.gold_min | number:1}}</td>
-								<td class="win_rate">{{clf.win_rate * 100 | number:2}}%</td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="shrinkWidth center-block">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Role</th>
+									<th>Kills</th>
+									<th>Deaths</th>
+									<th>Assists</th>
+									<th>CS/min</th>
+									<th>Gold/min</th>
+									<th>Win Rate</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="clf in champData | orderBy:'-win_rate'">
+									<td class="classification">{{clf.role}}</td>
+									<td class="kills">{{clf.kills | number:2}}</td>
+									<td class="deaths">{{clf.deaths | number:2}}</td>
+									<td class="assists">{{clf.assists | number:2}}</td>
+									<td class="cs_min">{{clf.cs_min | number:2}}</td>
+									<td class="gold_min">{{clf.gold_min | number:1}}</td>
+									<td class="win_rate">{{clf.win_rate * 100 | number:2}}%</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 					<br/>
+					<br/>
+					<div class="shrinkWidth center-block">
+						<h2 class="text-center">Overall Results</h2>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Kills</th>
+									<th>Deaths</th>
+									<th>Assists</th>
+									<th>CS/min</th>
+									<th>Gold/min</th>
+									<th>Win Rate</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="kills">{{champDataOverall.kills | number:2}}</td>
+									<td class="deaths">{{champDataOverall.deaths | number:2}}</td>
+									<td class="assists">{{champDataOverall.assists | number:2}}</td>
+									<td class="cs_min">{{champDataOverall.cs_min | number:2}}</td>
+									<td class="gold_min">{{champDataOverall.gold_min | number:1}}</td>
+									<td class="win_rate">{{champDataOverall.win_rate * 100 | number:2}}%</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</section>
 		</div>
