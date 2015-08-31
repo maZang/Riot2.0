@@ -86,7 +86,7 @@
 						<div class="itemRow text-center">
 							<h2 class="text-center">Popular Items</h2>
 							<div class="itemImage" ng-repeat="item in itemInfo">
-								<img src="{{item.url}}" title="{{item.item_name}}"><br/>
+								<img src="{{item.url}}" title="{{item.item_name}}: {{item.description}}"><br/>
 								{{item.item_win * 100 | number:2}}%
 							</div>
 						</div>
@@ -185,7 +185,8 @@
 							</tbody>
 						</table>
 					</div>
-					
+					<h2 class="text-center">Synergy with other champions</h2>
+
 				</div>
 			</section>
 		</div>

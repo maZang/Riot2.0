@@ -172,8 +172,8 @@ th > a{
 	color: yellow;
 }
 
-th > a:active{
-	color: red;
+th > a:visited{
+	color: yellow;
 }
 
 svg text {

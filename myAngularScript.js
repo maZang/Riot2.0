@@ -40,6 +40,8 @@
     		return itemJSON;
 		})(); 
 		$scope.itemJSON = itemJSON;
+		var syn_champs = {}; 
+
 
 		var champPictureReady = function(response){
 			$scope.champion = true;
