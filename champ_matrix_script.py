@@ -4,7 +4,7 @@ import RiotConsts as Consts
 from RiotAPI import RiotAPI
 import json
 
-api = RiotAPI('5692a80d-37e8-476a-8b37-7995789d9bf7')
+api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 champs = api.get_all_champs()
 champ_dict = {}
 index = 0

@@ -64,7 +64,7 @@
 					</form>
 					<h2 class ="text-center text-danger">{{errorMsg}}</h2>
 				</div>
-				<div ng-if="champion" class="championDetails" ng-style="{'background-image': 'url(' +imgURLchamp + ')', 'background-repeat': 'repeat',
+				<div id="scroll" ng-if="champion" class="championDetails" ng-style="{'background-image': 'url(' +imgURLchamp + ')', 'background-repeat': 'repeat', 
 				'background-size': '100%'}">
 					<br/>
 					<br/>
@@ -186,11 +186,11 @@
 						</table>
 					</div>
 					<h2 class="text-center">Synergy with other champions</h2>
-					<!-- <div class="synergyLine center-block">
+					<div class="synergyLine center-block">
 						<div class="synImage" ng-repeat="champ in champSyn">
-							<img src="{{champ.url}}" ng-style="{'border': 'solid', 'border-color': synergyVal}">
+							<img src="{{champ.url}}" ng-style="{'border': 'solid', 'border-color': '{{champ.synergy_val}}'}">
 						</div>
-					</div> -->
+					</div> 
 				</div>
 			</section>
 		</div>
