@@ -42,6 +42,26 @@
 		$scope.itemJSON = itemJSON;
 		var synChamps = {}; 
 
+		var decodeEntities = (function() {
+ 			var element = document.createElement('div');
+
+  			function decodeHTMLEntities (str) {
+    		if(str && typeof str === 'string') {
+      		str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+      		str = str.replace("<br>", "\n");
+      		str = str.replace("<unique>", "\n");
+      		str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+      		element.innerHTML = str;
+     		str = element.textContent;
+     		element.textContent = '';
+    		}
+
+    	return str;
+  		}
+
+  return decodeHTMLEntities;
+})();
+
 
 		var champPictureReady = function(response){
 			$scope.champion = true;
@@ -91,7 +111,7 @@
 				$scope.imgURLitem = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/item/" + itemDict[$scope.champName][pair][0] + ".png";
 				$scope.itemPlay = itemDict[$scope.champName][pair][1];
 				$scope.itemName = $scope.itemJSON.data[itemDict[$scope.champName][pair][0]].name;
-				$scope.itemDescription = $scope.itemJSON.data[itemDict[$scope.champName][pair][0]].description;
+				$scope.itemDescription = decodeEntities($scope.itemJSON.data[itemDict[$scope.champName][pair][0]].description);
 				$scope.itemInfo.push({"url": $scope.imgURLitem, "item_name": $scope.itemName, "description": $scope.itemDescription, "item_play": $scope.itemPlay});
 			}
 
