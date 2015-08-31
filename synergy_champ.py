@@ -39,7 +39,7 @@ for champ in champ_syn_dict:
 		total_games += game
 		total_wins += win
 		#don't do it if not enough data
-		if game > 30:
+		if game > 0:
 			new_syn_dict[member] = win/game
 	win_rate = total_wins / total_games
 	for member in new_syn_dict:

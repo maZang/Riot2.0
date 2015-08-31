@@ -22,9 +22,10 @@ def main():
 	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	api_euw = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_west'])
 	api_eune = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_nordic_and_east'])
+	api_kr = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['korea'])
 	#loading the NA match ids
-	data = json.loads(open('./BILGEWATER/EUNE.json').read())
-	data += json.loads(open('./BILGEWATER/EUW.json').read())
+	data = json.loads(open('./BILGEWATER/KR.json').read())
+	#data += json.loads(open('./BILGEWATER/EUW.json').read())
 	data += json.loads(open('./BILGEWATER/NA.json').read())
 	csv_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
 	pop_items = make_items_dict()
@@ -37,9 +38,7 @@ def main():
 		print("On match number " + str(match_num))
 		if match_num <= 10000:
 			#print(matchid)
-			match = api_eune.get_match_info(matchid, {'includeTimeline': True})
-		elif match_num <= 20000:
-			match = api_euw.get_match_info(matchhid, {'includeTimeline': True})
+			match = api_kr.get_match_info(matchid, {'includeTimeline': True})
 		else: 
 			match = api.get_match_info(matchhid, {'includeTimeline': True})
 		win_team = []
