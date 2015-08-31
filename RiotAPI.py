@@ -22,10 +22,11 @@ class RiotAPI(object):
 				print("Rate limit exceeded... Currently waiting")
 				continue
 			if response.status_code == Consts.NOT_FOUND:
+				print("Not found!")
 				return False
 			if response.status_code != Consts.SUCCESS_CODE:
 				print("Unknown Error with status code " + str(response.status_code))
-				continue
+				return False
 			break
 		return response.json()
 

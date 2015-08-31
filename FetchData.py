@@ -9,7 +9,7 @@ import k_means_learning as KLearn
 with open('champ_dict.json', 'r') as df:
 	CHAMP_TO_MATRIX = json.load(df)
 
-SHOW_MATRIX = True
+SHOW_MATRIX = False
 
 #cache results of search
 mastery_cache = LRUCache(150)
@@ -24,9 +24,9 @@ def main():
 	api_eune = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_nordic_and_east'])
 	api_kr = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['korea'])
 	#loading the NA match ids
-	data = json.loads(open('./BILGEWATER/KR.json').read())
+	#data = json.loads(open('./BILGEWATER/EUW.json').read())
 	#data += json.loads(open('./BILGEWATER/EUW.json').read())
-	data += json.loads(open('./BILGEWATER/NA.json').read())
+	data = json.loads(open('./BILGEWATER/NA.json').read())
 	csv_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
 	pop_items = make_items_dict()
 	pop_spells = make_spells_dict()
@@ -36,14 +36,14 @@ def main():
 	match_num = 1
 	for matchid in data:
 		print("On match number " + str(match_num))
-		if match_num <= 10000:
+		#if match_num <= 10000:
 			#print(matchid)
-			match = api_kr.get_match_info(matchid, {'includeTimeline': True})
-		else: 
-			match = api.get_match_info(matchhid, {'includeTimeline': True})
+			#match = api_euw.get_match_info(matchid, {'includeTimeline': True})
+		#else: 
+		match = api.get_match_info(matchid, {'includeTimeline': True})
 		win_team = []
 		lose_team = []
-		if match['matchDuration'] < 1000:
+		if match is False or match['matchDuration'] < 1000:
 			print("Broken Match")
 			continue
 		for champ in match['participants']:
@@ -62,13 +62,14 @@ def main():
 			spell1id = champ['spell2Id'] + champ['spell1Id']
 			spell2id = champ['spell1Id'] * champ['spell2Id']
 			if champ['spell2Id'] in pop_spells[champ_name]:
-				pop_spells[champ_name]['spell2Id'] += 1
+				pop_spells[champ_name][champ['spell2Id']] += 1
 			else:
-				pop_spells[champ_name]['spell2Id'] = 1
+				pop_spells[champ_name][champ['spell2Id']] = 1
 			if champ['spell1Id'] in pop_spells[champ_name]:
-				pop_spells[champ_name]['spell1Id'] += 1
+				pop_spells[champ_name][champ['spell1Id']] += 1
 			else:
-				pop_spells[champ_name]['spell1Id'] = 1
+				pop_spells[champ_name][champ['spell1Id']] = 1
+			#print(pop_spells)
 			#place data into matrix
 			#attack range not changed because data is normalized anyway
 			csv_data_delta = np.array([offense, defense, utility, kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, 
