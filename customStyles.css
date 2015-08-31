@@ -162,6 +162,8 @@ ul{
 	width: 90%;
 }
 
-#chart svg {
-  height: 400px;
+ #chart svg {
+ 	margin: auto;
+    height: 450px !important;
+    width: 450px !important;
 }
