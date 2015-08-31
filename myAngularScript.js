@@ -40,7 +40,7 @@
     		return itemJSON;
 		})(); 
 		$scope.itemJSON = itemJSON;
-		var syn_champs = {}; 
+		var synChamps = {}; 
 
 
 		var champPictureReady = function(response){
@@ -57,7 +57,6 @@
 			$scope.spell1URL = "http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/" + $scope.spell1 + ".png";
 			$scope.spell2URL = "http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/" + $scope.spell2 + ".png";
 			var data = playRate[$scope.champName];
-
 			
 			nv.addGraph(function() {
   				var chart = nv.models.pieChart()
@@ -94,6 +93,10 @@
 				$scope.itemName = $scope.itemJSON.data[itemDict[$scope.champName][pair][0]].name;
 				$scope.itemDescription = $scope.itemJSON.data[itemDict[$scope.champName][pair][0]].description;
 				$scope.itemInfo.push({"url": $scope.imgURLitem, "item_name": $scope.itemName, "description": $scope.itemDescription, "item_play": $scope.itemPlay});
+			}
+
+			for(var champ in synChamps[$scope.champName]){
+				$scope.imgURLsyn = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champ + ".png";
 			}
 		};
 		
