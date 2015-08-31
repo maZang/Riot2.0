@@ -34,7 +34,6 @@ def main():
 	_fill_champ_id_range(csv_data, data_col_base)
 	match_num = 1
 	for matchid in data:
-		matchid = 2231924111
 		print("On match number " + str(match_num))
 		if match_num <= 10000:
 			#print(matchid)
@@ -45,6 +44,9 @@ def main():
 			match = api.get_match_info(matchhid, {'includeTimeline': True})
 		win_team = []
 		lose_team = []
+		if match['matchDuration'] < 1000:
+			print("Broken Match")
+			continue
 		for champ in match['participants']:
 			#get champ id and name
 			championID = champ['championId']
@@ -137,6 +139,9 @@ def second_main():
 			match = api_kr.get_match_info(matchhid, {'includeTimeline': True})
 		else: 
 			match = api.get_match_info(matchhid, {'includeTimeline': True})
+		if match['matchDuration'] < 1000:
+			print("Broken Match")
+			continue
 		for champ in match['participants']:
 			champ_data = np.zeros(shape=[1, Consts.BLACK_MARKET_FEATURES])
 			#get champ id and name
@@ -260,8 +265,6 @@ def _parse_stats(stats, champid):
 	return kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, win
 
 def _parse_timeline(timeline):
-	if 'creepsPerMinDeltas' not in timeline:
-		return 0, 0
 	cs_min_dict = timeline['creepsPerMinDeltas']
 	gold_min_dict = timeline['goldPerMinDeltas']
 	#both dictionaries should have the same lengths
