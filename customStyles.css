@@ -167,3 +167,11 @@ ul{
     height: 450px !important;
     width: 450px !important;
 }
+
+th > a{
+	color: yellow;
+}
+
+th > a:active{
+	color: red;
+}

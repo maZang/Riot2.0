@@ -47,12 +47,12 @@
 			<section ng-controller="MainController">
 				<div class="searchInterface">
 					<form ng-submit = "search(champName)" class="form-horizontal" role="form">
-						<h2 class="text-center">What champion overview are you looking for?</h2>
+						<h2 class="text-center">What champion's overview are you looking for?</h2>
 						<br/>
 						<div class="row" id="searchRow">
 							<div class="col-md-4"></div>
 							<div class="col-md-3">
-								<autocomplete class="form" ng-model="champName" data="champs" click-activation="true" attr-placeholder = "Enter a Champion Name, e.g. Aatrox"></autocomplete>
+								<autocomplete class="form" ng-model="champName" data="champs" click-activation="true" attr-placeholder = "Enter a champion here"></autocomplete>
 							</div>
 
 							<div class="col-md-1">
@@ -117,7 +117,7 @@
 									</th>
 									<th>
 										<a href="#" ng-click="orderByField='assists'; reverseSort = !reverseSort">
-											Deaths
+											Assists
 										<span ng-show="orderByField =='assists'"><span ng-show="!reverseSort"><i class="fa fa-caret-square-o-up"></i></span><span ng-show="reverseSort"><i class="fa fa-caret-square-o-down"></i></span></span>
          								 </a>
 									</th>

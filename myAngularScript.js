@@ -40,7 +40,6 @@
     		return itemJSON;
 		})(); 
 		$scope.itemJSON = itemJSON;
-		console.log($scope.itemJSON.data);
 
 		var champPictureReady = function(response){
 			$scope.champion = true;
