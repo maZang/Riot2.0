@@ -11,7 +11,9 @@
 	<script type="text/javascript" src="script/autocomplete.js"></script>
 
 	<!-- CSS -->
+	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Font Awesome-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href= "https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css"> 
 	<link href="customStyles.css" rel="stylesheet">
@@ -33,7 +35,7 @@
 				<ul class="nav nav-justified nav-tabs">
 					<li class=""><a href="./index.html">Home</a></li>
 					<li class="active"><a href="#">Champions</a></li>
-					<li><a href="#">Items</a></li>
+					<li><a href="./synergy.html">Synergy</a></li>
 				</ul>
 			</nav>
 			<div class="intro">
@@ -98,42 +100,43 @@
 									<th> 
 										<a href="#" ng-click="orderByField='role'; reverseSort = !reverseSort">
 											Role
-										<span ng-show="orderByField =='role'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+										<span ng-show="orderByField =='role'"><span ng-show="!reverseSort"><i class="fa fa-long-arrow-up"></i></span><span ng-show="reverseSort"><i class="fa fa-long-arrow-down"></i></span></span>
          								 </a>
          							</th>
 									<th>
 										<a href="#" ng-click="orderByField='kills'; reverseSort = !reverseSort">
 											Kills
-										<span ng-show="orderByField =='kills'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+										<span ng-show="orderByField =='kills'"><span ng-show="!reverseSort"><i class="fa fa-long-arrow-up"></i></span>
+										<span ng-show="reverseSort"><i class="fa fa-long-arrow-down"></i></span></span>
          								 </a>
 									</th>
 									<th>
 										<a href="#" ng-click="orderByField='deaths'; reverseSort = !reverseSort">
 											Deaths
-										<span ng-show="orderByField =='deaths'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+										<span ng-show="orderByField =='deaths'"><span ng-show="!reverseSort"><i class="fa fa-long-arrow-up"></i></span><span ng-show="reverseSort"><i class="fa fa-long-arrow-down"></i></span></span>
          								 </a>
 									</th>
 									<th>
 										<a href="#" ng-click="orderByField='assists'; reverseSort = !reverseSort">
 											Deaths
-										<span ng-show="orderByField =='assists'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+										<span ng-show="orderByField =='assists'"><span ng-show="!reverseSort"><i class="fa fa-long-arrow-up"></i></span><span ng-show="reverseSort"><i class="fa fa-long-arrow-down"></i></span></span>
          								 </a>
 									</th>
 									<th>
 										<a href="#" ng-click="orderByField='cs_min'; reverseSort = !reverseSort">
 											CS/min
-										<span ng-show="orderByField =='cs_min'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+										<span ng-show="orderByField =='cs_min'"><span ng-show="!reverseSort"><i class="fa fa-long-arrow-up"></i></span><span ng-show="reverseSort"><i class="fa fa-long-arrow-down"></i></span></span>
          								 </a>
 									</th>
 									<th>
 										<a href="#" ng-click="orderByField='gold_min'; reverseSort = !reverseSort">
 											Gold/min
-										<span ng-show="orderByField =='gold_min'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+										<span ng-show="orderByField =='gold_min'"><span ng-show="!reverseSort"><i class="fa fa-long-arrow-up"></i></span><span ng-show="reverseSort"><i class="fa fa-long-arrow-down"></i></span></span>
 									</th>
 									<th>
 										<a href="#" ng-click="orderByField='win_rate'; reverseSort = !reverseSort">
 											Win Rate
-										<span ng-show="orderByField =='win_rate'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+										<span ng-show="orderByField =='win_rate'"><span ng-show="!reverseSort"><i class="fa fa-long-arrow-up"></i></span><span ng-show="reverseSort"><i class="fa fa-long-arrow-down"></i></span></span>
 									</th>
 								</tr>
 							</thead>
