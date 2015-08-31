@@ -22,14 +22,13 @@ def main():
 	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	api_euw = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_west'])
 	api_eune = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_nordic_and_east'])
-	api_kr = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['korea'])
 	#loading the NA match ids
 	data = json.loads(open('./BILGEWATER/EUNE.json').read())
-	data += json.loads(open('./BILGEWATER/KR.json').read())
 	data += json.loads(open('./BILGEWATER/EUW.json').read())
 	data += json.loads(open('./BILGEWATER/NA.json').read())
 	csv_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
-	pop_items = make_items_dict() 
+	pop_items = make_items_dict()
+	pop_spells = make_spells_dict()
 	team_comps = {}
 	data_col_base = len(Consts.STAT_TO_MATRIX)
 	_fill_champ_id_range(csv_data, data_col_base)
@@ -40,8 +39,6 @@ def main():
 			#print(matchid)
 			match = api_eune.get_match_info(matchid, {'includeTimeline': True})
 		elif match_num <= 20000:
-			match = api_kr.get_match_info(matchhid, {'includeTimeline': True})
-		elif match_num <= 30000:
 			match = api_euw.get_match_info(matchhid, {'includeTimeline': True})
 		else: 
 			match = api.get_match_info(matchhid, {'includeTimeline': True})
@@ -62,6 +59,14 @@ def main():
 			#combination so it does not matter which order summoner spells are chosen
 			spell1id = champ['spell2Id'] + champ['spell1Id']
 			spell2id = champ['spell1Id'] * champ['spell2Id']
+			if champ['spell2Id'] in pop_spells[champ_name]:
+				pop_spells[champ_name]['spell2Id'] += 1
+			else:
+				pop_spells[champ_name]['spell2Id'] = 1
+			if champ['spell1Id'] in pop_spells[champ_name]:
+				pop_spells[champ_name]['spell1Id'] += 1
+			else:
+				pop_spells[champ_name]['spell1Id'] = 1
 			#place data into matrix
 			#attack range not changed because data is normalized anyway
 			csv_data_delta = np.array([offense, defense, utility, kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, 
@@ -93,6 +98,8 @@ def main():
 		json.dump(pop_items, fp)
 	with open('team_dict.json', 'w') as fp:
 		json.dump(team_comps, fp)
+	with open('spell_dict.json', 'w') as fp:
+		json.dump(pop_spells, fp)
 
 def second_main():
 	#np.set_printoptions(threshold=np.inf)
@@ -102,7 +109,6 @@ def second_main():
 	api_kr = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['korea'])
 	#loading the NA match ids
 	data = json.loads(open('./BILGEWATER/EUW.json').read())
-	data += json.loads(open('./BILGEWATER/EUNE.json').read())
 	data += json.loads(open('./BILGEWATER/KR.json').read())
 	data += json.loads(open('./BILGEWATER/NA.json').read())
 	data_col_base = len(Consts.STAT_TO_MATRIX)
@@ -127,8 +133,6 @@ def second_main():
 			#print(matchid)
 			match = api_euw.get_match_info(matchid, {'includeTimeline': True})
 		elif match_num <= 20000:
-			match = api_eune.get_match_info(matchhid, {'includeTimeline': True})
-		elif match_num <= 30000:
 			match = api_kr.get_match_info(matchhid, {'includeTimeline': True})
 		else: 
 			match = api.get_match_info(matchhid, {'includeTimeline': True})
@@ -183,6 +187,14 @@ def add_to_team_comps(win_team, lose_team, team_comps):
 	return team_comps
 
 def make_items_dict():
+	champ_dict = {}
+	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
+	champs = api.get_all_champs()
+	for champ in champs['data'].keys():
+		champ_dict[champ] = {}
+	return champ_dict
+
+def make_spells_dict():
 	champ_dict = {}
 	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
 	champs = api.get_all_champs()

@@ -22,7 +22,7 @@ def main():
 	new_champ_dict_ovl = {}
 	for row in range(0, data.shape[0]):
 		champ_name = _get_name(row)
-		new_champ_dict[champ_name] = {}
+		new_champ_dict[champ_name] = []
 		total_games = data[row, Consts.BLACK_MARKET_FEATURES-1]
 		for idx, data_table in enumerate(data_list):
 			dict_data = {}
@@ -45,7 +45,7 @@ def main():
 				dict_data['ap_built'] = data_table[row, Consts.STAT_TO_MATRIX['FlatMagicDamageMod']]
 				new_champ_dict_ovl[champ_name] = dict_data 
 			else:
-				new_champ_dict[champ_name][roles[idx]] = dict_data
+				new_champ_dict[champ_name].append(dict_data)
 	with open('new_champ_dict.json', 'w') as fp:
 		json.dump(new_champ_dict, fp)
 	with open('new_champ_dict_ovl.json', 'w') as fp:
