@@ -161,3 +161,7 @@ ul{
 .shrinkWidth{
 	width: 90%;
 }
+
+#chart svg {
+  height: 400px;
+}
