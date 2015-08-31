@@ -105,19 +105,31 @@
 		$scope.search = function(champName){
 			$http.get("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champName + ".png").then(champPictureReady, ifError);
 
-			$scope.imgURLitem = [];
-			$scope.itemWinRate = [];
 			$scope.itemInfo = [];
 			for(var pair in itemDict[$scope.champName]){
-				$scope.imgURLitem = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/item/" + itemDict[$scope.champName][pair][0] + ".png";
-				$scope.itemPlay = itemDict[$scope.champName][pair][1];
-				$scope.itemName = $scope.itemJSON.data[itemDict[$scope.champName][pair][0]].name;
-				$scope.itemDescription = decodeEntities($scope.itemJSON.data[itemDict[$scope.champName][pair][0]].description);
-				$scope.itemInfo.push({"url": $scope.imgURLitem, "item_name": $scope.itemName, "description": $scope.itemDescription, "item_play": $scope.itemPlay});
+				var imgURLitem = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/item/" + itemDict[$scope.champName][pair][0] + ".png";
+				var itemPlay = itemDict[$scope.champName][pair][1];
+				var itemName = $scope.itemJSON.data[itemDict[$scope.champName][pair][0]].name;
+				var itemDescription = decodeEntities($scope.itemJSON.data[itemDict[$scope.champName][pair][0]].description);
+				$scope.itemInfo.push({"url": imgURLitem, "item_name": itemName, "description": itemDescription, "item_play": itemPlay});
 			}
 
+			$scope.champSyn = [];
+			$scope.synergyBorder = "";
 			for(var champ in synChamps[$scope.champName]){
-				$scope.imgURLsyn = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champ + ".png";
+				var imgURLsyn = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champ + ".png";
+				var synergyVal = synChamps[$scope.champName][champ];
+				if(synergyVal <= 1.1){
+					$scope.synergyBorder ="yellow";
+				}
+				else if(1.1 < synergyVal <= 1.2){
+					$scope.synergyVal = "#99FF33"
+				}
+				else{
+					$scope.synergyVal = "#00CC00"
+				}
+
+				$scope.champSyn.push({"url": $scope.imgURLsyn, "synergy_val": $scope.synergyVal});
 			}
 		};
 		
