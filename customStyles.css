@@ -166,4 +166,9 @@ ul{
  	margin: auto;
     height: 450px !important;
     width: 450px !important;
+    color: #FFFFFF;
+}
+
+svg text {
+	fill: white;
 }
