@@ -44,6 +44,9 @@ def main():
 			match = api.get_match_info(matchhid, {'includeTimeline': True})
 		win_team = []
 		lose_team = []
+		if match['matchDuration'] < 1000:
+			print("Broken Match")
+			continue
 		for champ in match['participants']:
 			#get champ id and name
 			championID = champ['championId']
@@ -136,6 +139,9 @@ def second_main():
 			match = api_kr.get_match_info(matchhid, {'includeTimeline': True})
 		else: 
 			match = api.get_match_info(matchhid, {'includeTimeline': True})
+		if match['matchDuration'] < 1000:
+			print("Broken Match")
+			continue
 		for champ in match['participants']:
 			champ_data = np.zeros(shape=[1, Consts.BLACK_MARKET_FEATURES])
 			#get champ id and name
@@ -148,7 +154,7 @@ def second_main():
 			#these methods return values which must then be input into the matrix
 			offense, defense, utility = _parse_masteries(champ.get('masteries', []))
 			kills, deaths, assists, phys_dmg, mgc_dmg, true_dmg, dmg_taken, team_jgl, enemy_jgl, win = _parse_stats(champ['stats'], championID)
-			cs_min, gold_min = _parse_timeline(champ['timeline'])
+			cs_min, gold_min = _parse_timeline(champ['timeline'])	
 			#combination so it does not matter which order summoner spells are chosen
 			spell1id = champ['spell2Id'] + champ['spell1Id']
 			spell2id = champ['spell1Id'] * champ['spell2Id']

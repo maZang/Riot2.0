@@ -175,3 +175,7 @@ th > a{
 th > a:active{
 	color: red;
 }
+
+svg text {
+	fill: white;
+}

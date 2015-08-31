@@ -68,8 +68,11 @@
         		.transition().duration(350)
         		.call(chart);
 
+        		d3.selectAll('.nv-pieLabels text').style('fill', "white");
+        		d3.selectAll('.nv-pieLabels text').style('font-family', "Oswald");
   				return chart;
 			});
+
 		};
 
 		var ifError = function(noChamp){
