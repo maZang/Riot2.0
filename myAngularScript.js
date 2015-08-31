@@ -10,6 +10,16 @@
 	//MainController
 	var MainController = function($scope, $http, $location, $anchorScroll){
 
+		$scope.changeColor = function(champ, bool) {
+			if (bool === true) {
+				$scope.tintColor = {'background': champ.synergy_val, '-moz-transition': 'background .3s linear',
+				'-webkit-transition': 'background .3s linear',
+				'-o-transition': 'background .3s linear',
+				'transition': 'background .3s linear'};
+			} else if (bool == false) {
+				$scope.tintColor = {}
+			}
+		}
 		$scope.orderByField = 'role';
   		$scope.reverseSort = false;
 
@@ -122,15 +132,16 @@
 			for(var champ in synChamps[$scope.champName]){
 				var imgURLsyn = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champ + ".png";
 				var synergyVal = synChamps[$scope.champName][champ];
-				if(synergyVal <= 1.06){
-					synergyVal ="yellow";
+				var opacity = synergyVal/1.5;
+				if (synergyVal > 1.25) {
+					synergyVal = 255;
 				}
-				else if(1.06 < synergyVal <= 1.1){
-					synergyVal = "#99FF33"
+				else {
+					synergyVal = 1500*synergyVal - 1545;
 				}
-				else{
-					synergyVal = "#00CC00"
-				}
+				synergyVal = Math.round(synergyVal);
+				var antisynVal = 255 - synergyVal;
+				synergyVal = "rgba(" + antisynVal + ",255, " + antisynVal + "," + opacity + ")";
 				$scope.champSyn.push({"url": imgURLsyn, "synergy_val": synergyVal});
 			}
 			console.log($scope.champSyn);
