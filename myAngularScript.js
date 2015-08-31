@@ -50,6 +50,7 @@
       		str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
       		str = str.replace("<br>", "\n");
       		str = str.replace("<unique>", "\n");
+      		str = str.replace("<stats>", "\n");
       		str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
       		element.innerHTML = str;
      		str = element.textContent;
