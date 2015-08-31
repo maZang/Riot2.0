@@ -92,17 +92,50 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th>Role</th>
-									<th>Kills</th>
-									<th>Deaths</th>
-									<th>Assists</th>
-									<th>CS/min</th>
-									<th>Gold/min</th>
-									<th>Win Rate</th>
+									<th> 
+										<a href="#" ng-click="orderByField='role'; reverseSort = !reverseSort">
+											Role
+										<span ng-show="orderByField =='role'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+         								 </a>
+         							</th>
+									<th>
+										<a href="#" ng-click="orderByField='kills'; reverseSort = !reverseSort">
+											Kills
+										<span ng-show="orderByField =='kills'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+         								 </a>
+									</th>
+									<th>
+										<a href="#" ng-click="orderByField='deaths'; reverseSort = !reverseSort">
+											Deaths
+										<span ng-show="orderByField =='deaths'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+         								 </a>
+									</th>
+									<th>
+										<a href="#" ng-click="orderByField='assists'; reverseSort = !reverseSort">
+											Deaths
+										<span ng-show="orderByField =='assists'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+         								 </a>
+									</th>
+									<th>
+										<a href="#" ng-click="orderByField='cs_min'; reverseSort = !reverseSort">
+											CS/min
+										<span ng-show="orderByField =='cs_min'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+         								 </a>
+									</th>
+									<th>
+										<a href="#" ng-click="orderByField='gold_min'; reverseSort = !reverseSort">
+											Gold/min
+										<span ng-show="orderByField =='gold_min'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+									</th>
+									<th>
+										<a href="#" ng-click="orderByField='win_rate'; reverseSort = !reverseSort">
+											Win Rate
+										<span ng-show="orderByField =='win_rate'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+									</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="clf in champData | orderBy:'-win_rate'">
+								<tr ng-repeat="clf in champData | orderBy:orderByField:reverseSort">
 									<td class="classification">{{clf.role}}</td>
 									<td class="kills">{{clf.kills | number:2}}</td>
 									<td class="deaths">{{clf.deaths | number:2}}</td>
