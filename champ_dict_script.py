@@ -20,20 +20,24 @@ def main():
 	data_list = [data, phys_data, mgc_data, ass_data, jgl_data, mage_data, marksman_data, support_data, tank_data]
 	new_champ_dict = {}
 	new_champ_dict_ovl = {}
+	play_data = {}
 	for row in range(0, data.shape[0]):
 		champ_name = _get_name(row)
 		new_champ_dict[champ_name] = []
+		play_data[champ_name] = []
 		total_games = data[row, Consts.BLACK_MARKET_FEATURES-1]
 		for idx, data_table in enumerate(data_list):
 			dict_data = {}
+			play_data_item = {}
 			dict_data['kills'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['kills']]
 			dict_data['deaths'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['deaths']]
 			dict_data['assists'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['assists']]
 			dict_data['cs_min'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['cs_min']]
 			dict_data['gold_min'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['gold_min']]
 			dict_data['win_rate'] = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['win']]
-			dict_data['percent_games_played'] = data_table[row, Consts.BLACK_MARKET_FEATURES-1]/total_games
+			play_data_item['value'] = data_table[row, Consts.BLACK_MARKET_FEATURES-1]/total_games
 			dict_data['role'] = roles[idx]
+			play_data_item['label'] = roles[idx]
 			if idx == 0:
 				spell_1 = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['spell1id']]
 				spell_2 = data_table[row, len(Consts.STAT_TO_MATRIX) + Consts.VARIABLE_TO_MATRIX['spell2id']]
@@ -46,10 +50,13 @@ def main():
 				new_champ_dict_ovl[champ_name] = dict_data 
 			else:
 				new_champ_dict[champ_name].append(dict_data)
+				play_data[champ_name].append(play_data_item)
 	with open('new_champ_dict.json', 'w') as fp:
 		json.dump(new_champ_dict, fp)
 	with open('new_champ_dict_ovl.json', 'w') as fp:
 		json.dump(new_champ_dict_ovl, fp)
+	with open('play_data.json', 'w') as fp:
+		json.dump(play_data, fp)
 
 def get_summoner_spells(spell1, spell2):
 	maths = spell1 ** 2 - 4 * spell2
