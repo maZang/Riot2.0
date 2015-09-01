@@ -12,6 +12,10 @@ h1{
 	color: red;
 }
 
+.orangeText{
+	color: #F93;
+}
+
 nav{
 	z-index: 99;
 }
