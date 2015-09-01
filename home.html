@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+	<!-- Bootstrap CSS and Font Awesome -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	
+	<!-- Google Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Raleway:700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	
+	<!-- Custom CSS -->
+	<link href="customStyles.css" rel="stylesheet">
+
+	<!-- Custom Script-->
+	<script src="customScript.js"></script>
+	
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Black Market Brawlers Analysis</title>
+		<link rel="shortcut icon" href="./bilgewater.ico">
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<nav>
+				<ul class="nav nav-justified nav-tabs">
+					<li class="active"><a data-toggle="pill" href="#">Home</a></li>
+					<li class=""><a data-toggle="pill" href="./index.html">Champions</a></li>
+				</ul>
+			</nav>
+			<div class="intro">
+				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				<h1 class="text-center">Riot Games API Challenge 2.0</h1>
+				<br/><br/><br/><br/><br/>
+				<button class="btn btn-default center-block"><a href="https://github.com/maZang/Riot2.0/"><span class="text-center">View Source Code <i class="fa fa-github"></i></span></a></button>
+				<br/><br/><br/>
+			</div>
+			<section id="divGradient">
+				<div class="row">
+					<div class="col-md-6 text-center leftColumn">
+						<h2 class="orangeText">Description</h2>
+						<p>Welcome to Black Market Combat Analysis! Here we analyze the champions and their playstyles. Currently the data only contains data from a few regions (many, many games analyzed), but we will hopefully be able to expand on the data for more statistically sound analysis. Go to the champions tab and type in a champ name. </p>
+
+						<p>
+							Type in the champ you want to see. You will see a brief overview of the main role they are played in, main summoner spells, and the popular items. Note, the playstyle is dictated by the average distance to the centroid. In this case, the play rate may not directly coincide with the exact playstyle (for example, a lot of Ryze's games are loosely classified as somewhere between Mage and Magical Bruiser, but a lot more of his games are strongly classified as Magical Bruiser, leading to an overall classification of Magical Bruiser). Following, you will see a table of the roles and some statisitcs behind the roles. The roles are based on the items the champs buy in the specific game, as well as the statistics of the game (such as damage dealt, minions killed, etc...) Some classifications might be a little unaccurate as of now, as more data is still being collected. Then you will see a neat little pie graph of the overall playrates, and a little chart of the overall results (averaged over all games). At the bottom is a place where you see champ synergy. Here, yellow indicates that is barely synergy (but still some synergy) and green indicates that the winrates of both champs rise significantly. Hover over the images and the background changes color to match the synergy level for easier comparisons.
+						</p>
+
+						<p>
+							For those that happened to randomly stumble upon the website while searching for the real black market, this site is unfortunately not where you buy illegal goods. It is also not the clothing store "White House | Black Market". This site is based upon the Black Market Brawlers game mode in the popular MOBA game League of Legends. For more information, please go to the League of Legends website because I honestly do not know how to describe this game myself. 
+						</p>
+					</div>
+					<div class="col-md-6 text-center rightColumn">
+						<h2 class="orangeText">Methodology</h2>
+						<p>Using Riot's API, we fetched data from over 20,000 games from the NA and KR regions. We performed k-means clustering on the data set over 8 centroids for the main 
+						categories of fighters in League of Legends. Using Riven as the initial assassin centroid, 
+						Ashe as the initial marksman centroids, Renekton as the initial physical bruiser centroid, Lee
+						Sin as the jungler, Annie as the mage, Braum as the support, Maokai as the tank, and Singed as 
+						the magical bruiser our k-means converged to produce 8 unique centroids. We selected numerous features for the analysis, being careful to normalize each feature first. We chose the stat modifiers from items, runes, number of each category of mastery, attack range, gold earned, cs gained, etc... The image below was created from python's pyplot.
+					</p>
+
+					<img id="kcluster"src="k_cluster.png">
+
+						<p>
+						We analyzed the data as we fetched it, writing python scripts to produce json files that would be used to create each individual champion page. We essentially fetched a match from Riot's servers, compiled the data into a neat little matrix that can be viewed as "data.csv". This matrix was then analyzed in other scripts, producing the common summoner spells, popular items, etc... View our scripts over at our GitHub by clicking the link above. This site was created entirely using Javascript, Python, CSS, and HTML.
+					</p>
+					</div>
+				</div>
+				<br/>
+				<br/>
+				<div class="text-center">
+					<h2 class="text-danger">Disclaimer: Gangplank was disabled during the Black Market Brawlers game mode.</h2>
+					This webpage was made for <a href="https://developer.riotgames.com/discussion/announcements/show/2lxEyIcE">"The Riot Games API Challenge 2.0"</a>. The creators of this website are not affiliated with &copy;Riot Games. <br/>
+					<br/>
+				</footer>
+			</section>
+			<footer class="text-center">
+				<br/>
+				Matthew Zang (Class of 2018 Computer Science major at Cornell University)<br/>
+				Shandilya Pachgade (Class of 2018 Computer Engineering major at University of Illinois at Urbana-Champaign)<br/>
+				<br/>
+			</footer>
+		</div>
+	</body>
+</html>
