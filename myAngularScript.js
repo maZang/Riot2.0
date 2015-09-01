@@ -114,8 +114,60 @@
 	
 		$scope.search = function(champName){
 			console.log(champName);
-
 			champName = champName.charAt(0).toUpperCase() + champName.slice(1);
+			if (champName == "Drmundo" || champName == "Dr. Mundo" || champName == "Dr. mundo") {
+				champName = "DrMundo";
+			}
+			if (champName == "Vel\'koz" || champName == "Vel\'Koz") {
+				champName = "Velkoz";
+			}
+			if (champName == "Cho\'gath" || champName == "Cho\'Gath") {
+				champName = "Chogath";
+			}
+			if (champName == "Tahm Kench" || champName == "Tahm kench" || champName == "Tahmkench") {
+				champName = "TahmKench";
+			}
+			if (champName == "Jarvan IV" || champName == "Jarvan 4" || champName == "Jarvan iv" || champName == "Jarvaniv" || champName == "Jarvan Iv") {
+				champName = "JarvanIV";
+			}
+			if (champName == "Kha\'zix" || champName == "Kha\'Zix") {
+				champName = "Khazix";
+			}
+			if (champName == "Kog\'maw" || champName == "Kog\'maw") {
+				champName = "Khazix";
+			}
+			if (champName == "Kog\'maw" || champName == "Kog\'maw" || champName == "Kogmaw") {
+				champName = "KogMaw";
+			}
+			if (champName == "LeBlanc") {
+				champName = "Leblanc";
+			}
+			if (champName == "Lee Sin" || champName == "Lee sin" || champName == "Leesin") {
+				champName = "LeeSin";
+			}
+			if (champName == "Master Yi" || champName == "Master yi" || champName == "Masteryi") {
+				champName = "MasterYi";
+			}
+			if (champName == "Missfortune" || champName == "Miss Fortune" || champName == "Miss fortune") {
+				champName = "MissFortune";
+			}
+			if (champName == "Wukong") {
+				champName = "MonkeyKing";
+			}
+			if (champName == "Rek\'sai" || champName == "Rek\'Sai" || champName == "Reksai") {
+				champName = "RekSai";
+			}
+			if (champName == "Twistedfate" || champName == "Twisted Fate" || champName == "Twisted fate") {
+				champName = "TwistedFate";
+			}
+			if (champName == "Xinzhao" || champName == "Xin Zhao" || champName == "Xin zhao") {
+				champName ="XinZhao";
+			}
+			if (champName == "Riot" || champName == "Satan") {
+				champName = "Teemo";
+			}
+
+
 			$scope.champName = champName;
 			$http.get("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champName + ".png").then(champPictureReady, ifError);
 
