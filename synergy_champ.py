@@ -20,27 +20,32 @@ for champ in champ_list:
 					prev_win, prev_game = champ_syn_dict[champ][champs]
 					champ_syn_dict[champ][champs] = (win + prev_win, game + prev_game)
 print(champ_syn_dict)
-compiled_syn_dict = {}
+new_syn_dict = {}
 for champ in champ_syn_dict:
-	compiled_syn_dict[champ] = {}
+	new_syn_dict[champ] = {}
 	syn_dict = champ_syn_dict[champ]
 	if len(syn_dict) == 0:
 		continue
 	total_wins = 0
 	total_games = 0
-	new_syn_dict = {}
 	for member in syn_dict:
 		win, game = syn_dict[member]
 		total_games += game
 		total_wins += win
 		#don't do it if not enough data
-		if game > 0:
-			new_syn_dict[member] = win/game
-	win_rate = total_wins / total_games
-	for member in new_syn_dict:
-		if new_syn_dict[member] > win_rate * 1.03:
-			compiled_syn_dict[champ][member] = new_syn_dict[member]/win_rate
+		new_syn_dict[champ][member] = (win, game)
+	new_syn_dict[champ][champ] = (total_wins, total_games)
+complete_syn_dict = {}
+for champ in new_syn_dict:
+	complete_syn_dict[champ] = {}
+	for member in new_syn_dict[champ]:
+		win,game = new_syn_dict[champ][member]
+		win_1, game_1 = new_syn_dict[champ][champ]
+		win_2, game_2 = new_syn_dict[member][member]
+		weighted_win_rate = (win_1/game_1 * (game_1)/(game_1 + game_2) + win_2/game_2 * game_2/(game_1 + game_2))
+		if win/game >= 1.01*weighted_win_rate:
+			complete_syn_dict[champ][member] = (win/game)/(weighted_win_rate)
 with open('syn_dict.json', 'w') as df:
-	json.dump(compiled_syn_dict, df)
+	json.dump(complete_syn_dict, df)
 
 
