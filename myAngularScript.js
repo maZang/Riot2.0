@@ -141,7 +141,7 @@
 				var redsynVal = 255 - synergyVal;
 				var bluesynVal = Math.round(redsynVal/2);
 				synergyVal = "rgba(" + redsynVal + ",255, " + bluesynVal + "," + opacity + ")";
-				$scope.champSyn.push({"url": imgURLsyn, "synergy_val": synergyVal});
+				$scope.champSyn.push({"url": imgURLsyn, "synergy_val": synergyVal, "name:" champ});
 			}
 			console.log($scope.champSyn);
 		};
