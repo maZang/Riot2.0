@@ -78,10 +78,10 @@ input{
 	font-style: italic;  
 }
 
-.searchInterface{
+/*.searchInterface{
 	border-bottom: ridge;
 	border-color: #B20000;
-}
+}*/
 
 .statement{
 	font-size: 30px;
@@ -184,4 +184,3 @@ svg text {
 	width: 85%;
 	height: 85%;
 }
-
