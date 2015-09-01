@@ -42,14 +42,14 @@ nav{
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li > a:hover{
-	background-color: #2E2E2E;
-	color: white;
+	background-color: #DDDDDD;
+	color: black;
 	border-color: black;
 }
 
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover{
-	color: #6699FF;
+	color: black;
 }
 
 section{
