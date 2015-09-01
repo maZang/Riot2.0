@@ -131,11 +131,11 @@
 				var imgURLsyn = "http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champ + ".png";
 				var synergyVal = synChamps[$scope.champName][champ];
 				var opacity = synergyVal/1.5;
-				if (synergyVal > 1.1) {
+				if (synergyVal > 1.8) {
 					synergyVal = 255;
 				}
 				else {
-					synergyVal = 2833.33*synergyVal - 2861.66;
+					synergyVal = 318.75*synergyVal - 318.75;
 				}
 				synergyVal = Math.round(synergyVal);
 				var redsynVal = 255 - synergyVal;

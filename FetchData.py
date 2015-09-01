@@ -24,9 +24,10 @@ def main():
 	api_eune = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_nordic_and_east'])
 	api_kr = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['korea'])
 	#loading the NA match ids
-	#data = json.loads(open('./BILGEWATER/EUW.json').read())
-	#data += json.loads(open('./BILGEWATER/EUW.json').read())
-	data = json.loads(open('./BILGEWATER/NA.json').read())
+	data = json.loads(open('./BILGEWATER/EUW.json').read())
+	#data += json.loads(open('./BILGEWATER/EUNE.json').read())
+	#data += json.loads(open('./BILGEWATER/KR.json').read())
+	data += json.loads(open('./BILGEWATER/NA.json').read())
 	csv_data = np.zeros(shape=[Consts.BLACK_MARKET_CHAMPIONS, Consts.BLACK_MARKET_FEATURES])
 	pop_items = make_items_dict()
 	pop_spells = make_spells_dict()
@@ -36,11 +37,11 @@ def main():
 	match_num = 1
 	for matchid in data:
 		print("On match number " + str(match_num))
-		#if match_num <= 10000:
+		if match_num <= 10000:
 			#print(matchid)
-			#match = api_euw.get_match_info(matchid, {'includeTimeline': True})
-		#else: 
-		match = api.get_match_info(matchid, {'includeTimeline': True})
+			match = api_euw.get_match_info(matchid, {'includeTimeline': True})
+		else: 
+			match = api.get_match_info(matchid, {'includeTimeline': True})
 		win_team = []
 		lose_team = []
 		if match is False or match['matchDuration'] < 1000:
@@ -385,6 +386,6 @@ def _parse_items(items, csv_data, champidx, pop_items, itemDict):
 	return csv_data
 
 if __name__ == "__main__":
-	third_main()
+	#third_main()
 	#second_main()
-	#main()
+	main()
