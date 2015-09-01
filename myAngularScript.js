@@ -118,53 +118,48 @@
 		};
 	
 		$scope.search = function(champName){
+			champName = champName.toLowerCase();
 			champName = champName.charAt(0).toUpperCase() + champName.slice(1);
-			if (champName == "Drmundo" || champName == "Dr. Mundo" || champName == "Dr. mundo") {
+			if (champName == "Drmundo" || champName == "Dr. mundo") {
 				champName = "DrMundo";
 			}
-			if (champName == "Vel\'koz" || champName == "Vel\'Koz") {
+			if (champName == "Vel\'koz") {
 				champName = "Velkoz";
 			}
-			if (champName == "Cho\'gath" || champName == "Cho\'Gath") {
+			if (champName == "Cho\'gath") {
 				champName = "Chogath";
 			}
-			if (champName == "Tahm Kench" || champName == "Tahm kench" || champName == "Tahmkench") {
+			if (champName == "Tahm kench" || champName == "Tahmkench") {
 				champName = "TahmKench";
 			}
-			if (champName == "Jarvan IV" || champName == "Jarvan 4" || champName == "Jarvan iv" || champName == "Jarvaniv" || champName == "Jarvan Iv") {
+			if (champName == "Jarvan 4" || champName == "Jarvan iv" || champName == "Jarvaniv") {
 				champName = "JarvanIV";
 			}
-			if (champName == "Kha\'zix" || champName == "Kha\'Zix") {
+			if (champName == "Kha\'zix" ) {
 				champName = "Khazix";
 			}
-			if (champName == "Kog\'maw" || champName == "Kog\'maw") {
-				champName = "Khazix";
-			}
-			if (champName == "Kog\'maw" || champName == "Kog\'maw" || champName == "Kogmaw") {
+			if (champName == "Kog\'maw" || champName == "Kogmaw") {
 				champName = "KogMaw";
 			}
-			if (champName == "LeBlanc") {
-				champName = "Leblanc";
-			}
-			if (champName == "Lee Sin" || champName == "Lee sin" || champName == "Leesin") {
+			if (champName == "Lee sin" || champName == "Leesin") {
 				champName = "LeeSin";
 			}
-			if (champName == "Master Yi" || champName == "Master yi" || champName == "Masteryi") {
+			if (champName == "Master yi" || champName == "Masteryi") {
 				champName = "MasterYi";
 			}
-			if (champName == "Missfortune" || champName == "Miss Fortune" || champName == "Miss fortune") {
+			if (champName == "Missfortune" || champName == "Miss fortune") {
 				champName = "MissFortune";
 			}
 			if (champName == "Wukong") {
 				champName = "MonkeyKing";
 			}
-			if (champName == "Rek\'sai" || champName == "Rek\'Sai" || champName == "Reksai") {
+			if (champName == "Rek\'sai" || champName == "Reksai") {
 				champName = "RekSai";
 			}
-			if (champName == "Twistedfate" || champName == "Twisted Fate" || champName == "Twisted fate") {
+			if (champName == "Twistedfate" || champName == "Twisted fate") {
 				champName = "TwistedFate";
 			}
-			if (champName == "Xinzhao" || champName == "Xin Zhao" || champName == "Xin zhao") {
+			if (champName == "Xinzhao" || champName == "Xin zhao") {
 				champName ="XinZhao";
 			}
 			if (champName == "Riot" || champName == "Satan") {
