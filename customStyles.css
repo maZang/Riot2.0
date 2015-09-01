@@ -62,6 +62,13 @@ input{
 	color: black;
 }
 
+footer{
+	color: white;
+	background-color: #111;
+	border-top: ridge;
+	border-color: white;
+}
+
 #searchRow{
 	margin: 0 10px 0 10px;
 }
@@ -78,10 +85,12 @@ input{
 	font-style: italic;  
 }
 
-/*.searchInterface{
-	border-bottom: ridge;
-	border-color: #B20000;
-}*/
+#divGradient{
+	background: -webkit-linear-gradient(#191919, black); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#191919, black); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#191919, black); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#191919, black); /* Standard syntax */
+}
 
 .statement{
 	font-size: 30px;
