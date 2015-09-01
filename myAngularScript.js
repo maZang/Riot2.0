@@ -79,6 +79,11 @@
 			$scope.champData = champDict[$scope.champName];
 			$scope.champDataOverall = champDictOverall[$scope.champName];
 			$scope.champRole = champRoles[$scope.champName];
+			if ($scope.champRole == "Assassin") {
+				$scope.word = "an"
+			} else {
+				$scope.word = "a"
+			}
 			$scope.champname = $scope.champName;
 			$scope.spell1 = champDictOverall[$scope.champName].spell1;
 			$scope.spell2 = champDictOverall[$scope.champName].spell2;
