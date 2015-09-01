@@ -48,6 +48,7 @@ def get_k_learn():
 	#champ_roles = make_role_dict(clusters, CHAMP_TO_MATRIX)
 	#with open('champ_roles.json', 'w') as fp:
 	#	json.dump(champ_roles, fp)
+	#plot(X_means)
 
 def plot(X_means):
 	#visualize (code retrieved from sci-kit learn)
