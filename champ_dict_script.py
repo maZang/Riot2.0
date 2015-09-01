@@ -61,7 +61,7 @@ def main():
 def get_summoner_spells(spell1, spell2):
 	maths = spell1 ** 2 - 4 * spell2
 	if maths < 0:
-		return "Flash", "Ignite"
+		return "SummonerFlash", "SummonerDot"
 	x = 1/2 * (spell1 - math.sqrt(spell1 ** 2  - 4 * spell2))
 	y = 1/2 * (math.sqrt(spell1 ** 2- 4 * spell2)  + spell1)
 	x = rounding(x)

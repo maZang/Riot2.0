@@ -104,6 +104,54 @@ def main():
 	with open('spell_dict.json', 'w') as fp:
 		json.dump(pop_spells, fp)
 
+def third_main():
+	#np.set_printoptions(threshold=np.inf)
+	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
+	api_euw = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_west'])
+	api_eune = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['europe_nordic_and_east'])
+	api_kr = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2', Consts.REGIONS['korea'])
+	#loading the NA match ids
+	#data = json.loads(open('./BILGEWATER/EUW.json').read())
+	#data += json.loads(open('./BILGEWATER/EUW.json').read())
+	data = json.loads(open('./BILGEWATER/NA.json').read())
+	pop_spells = make_spells_dict()
+	match_num = 1
+	for matchid in data:
+		if match_num > 700:
+			break
+		print("On match number " + str(match_num))
+		#if match_num <= 10000:
+			#print(matchid)
+			#match = api_euw.get_match_info(matchid, {'includeTimeline': True})
+		#else: 
+		match = api.get_match_info(matchid, {'includeTimeline': True})
+		if match is False or match['matchDuration'] < 1000:
+			print("Broken Match")
+			continue
+		for champ in match['participants']:
+			#get champ id and name
+			championID = champ['championId']
+			champ_name = champion_cache.find(championID)
+			if champ_name is False:
+				champ_name = api.get_champ_by_id(championID)['key']
+			champion_cache.place(championID, champ_name)
+			#combination so it does not matter which order summoner spells are chosen
+			spell1id = champ['spell2Id'] + champ['spell1Id']
+			spell2id = champ['spell1Id'] * champ['spell2Id']
+			if champ['spell2Id'] in pop_spells[champ_name]:
+				pop_spells[champ_name][champ['spell2Id']] += 1
+			else:
+				pop_spells[champ_name][champ['spell2Id']] = 1
+			if champ['spell1Id'] in pop_spells[champ_name]:
+				pop_spells[champ_name][champ['spell1Id']] += 1
+			else:
+				pop_spells[champ_name][champ['spell1Id']] = 1
+			#print(pop_spells)
+			#add to team list
+		match_num+=1
+	with open('spell_dict.json', 'w') as fp:
+		json.dump(pop_spells, fp)
+
 def second_main():
 	#np.set_printoptions(threshold=np.inf)
 	api = RiotAPI('be8ccf5f-5d08-453f-84f2-ec89ddd7cea2')
@@ -337,5 +385,6 @@ def _parse_items(items, csv_data, champidx, pop_items, itemDict):
 	return csv_data
 
 if __name__ == "__main__":
+	third_main()
 	#second_main()
-	main()
+	#main()
