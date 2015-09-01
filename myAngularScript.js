@@ -113,6 +113,8 @@
 		};
 	
 		$scope.search = function(champName){
+			console.log(champName);
+			$scope.champName = champName;
 			$http.get("http://ddragon.leagueoflegends.com/cdn/5.16.1/img/champion/" + champName + ".png").then(champPictureReady, ifError);
 
 			$scope.itemInfo = [];
@@ -140,9 +142,9 @@
 				var redsynVal = 255 - synergyVal;
 				var bluesynVal = Math.round(redsynVal/2);
 				synergyVal = "rgba(" + redsynVal + ",255, " + bluesynVal + "," + opacity + ")";
-				$scope.champSyn.push({"url": imgURLsyn, "synergy_val": synergyVal, "name:" champ});
+				$scope.champSyn.push({"url": imgURLsyn, "synergy_val": synergyVal, "name": champ});
 			}
-			console.log($scope.champSyn);
+			//console.log($scope.champSyn);
 		};
 
 		
